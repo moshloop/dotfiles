@@ -166,14 +166,6 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 # disable iTunes fuckin helper
 sudo mv /Applications/iTunes.app/Contents/MacOS/iTunesHelper.app{,-disabled} || true
 
-# also this spotify web helper
-mv ~/Applications/Spotify.app/Contents/MacOS/SpotifyWebHelper{,-disabled} || true
-
-# Android File Transfer disable auto-open when connect.
-mv "/opt/homebrew-cask/Caskroom/android-file-transfer/latest/Android File Transfer.app/Contents/Resources/Android File Transfer Agent.app"{,_DISABLED} || true
-mv "$HOME/Library/Application Support/Google/Android File Transfer/Android File Transfer Agent.app"{,_DISABLED} || true
-
-
 #
 # Terminals
 #

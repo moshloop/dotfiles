@@ -1,2 +1,4 @@
 #!/bin/sh
-export EDITOR='atom'
+export EDITOR='nano'
+export VISUAL='subl'
+

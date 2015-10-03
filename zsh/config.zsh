@@ -88,10 +88,7 @@ if [[ ! -z "$terminfo[kend]" ]]; then
   bindkey '[C' end-of-line
 fi
 
-# [Ctrl-RightArrow] - move forward one word
-bindkey '^[[1;5C' forward-word
-# [Ctrl-LeftArrow] - move backward one word
-bindkey '^[[1;5D' backward-word
+
 # [Shift-Tab] - move through the completion menu backwards
 if [[ ! -z "$terminfo[kcbt]" ]]; then
   bindkey "$terminfo[kcbt]" reverse-menu-complete
@@ -106,6 +103,11 @@ else
   bindkey "^[3;5~" delete-char
   bindkey "\e[3~" delete-char
 fi
+
+
+# ctrl-left,right to go back/forwardy a word
+bindkey '^[[1;9C' forward-word
+bindkey '^[[1;9D' backward-word
 
 # ignore case
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
