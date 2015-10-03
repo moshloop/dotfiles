@@ -12,37 +12,22 @@ if test ! "$(which brew)"; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-brew update
-
 # more formualae
 brew tap phinze/homebrew-cask || true
 brew tap caskroom/versions || true
 brew install brew-cask
 
 # usefull stuff
-brew install grc coreutils  htop-osx heroku-toolbelt \
-  imagemagick wget unrar ffmpeg gifsicle terminal-notifier
-brew cask install iterm2 disk-inventory-x appcleaner diffmerge 
+PACKAGES="htop-osx heroku-toolbelt fpp gnupg httpie packer pwgen curl fasd gradle  wget redis diffmerge unrar"
 
 
-brew install fpp gnupg httpie packer pwgen curl fasd gradle 
+for pkg in $PACKAGES; do
+    if brew list -1 | grep -q "^${pkg}\$"; then
+        echo "Package '$pkg' is installed"
+    else
+        brew install $pkg
+    fi
+done
 
-# browser
-brew cask install google-chrome
-
-# Install fonts.
-brew tap caskroom/fonts
-brew cask install font-source-code-pro
-
-# databases et al
-brew install redis
-brew cask install postgres postico
-
-# quick look plugins - https://github.com/sindresorhus/quick-look-plugins
-brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json \
-  qlprettypatch quicklook-csv betterzipql qlimagesize webpquicklook \
-  suspicious-package
-
-# clean things up
-brew cleanup
-brew cask cleanup
+brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql qlimagesize 
+#webpquicklook suspicious-package
