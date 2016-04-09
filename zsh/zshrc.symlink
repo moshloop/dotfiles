@@ -14,6 +14,7 @@ export LIB_CACHE=$PT/libs
 # your project folder that we can `c [tab]` to
 export PROJECTS=$PT_HOME
 
+export PURE_PROMPT_SYMBOL=➜ 
 
 # all of our zsh files
 typeset -U config_files
@@ -42,6 +43,10 @@ done
 
 unset config_files
 
+
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
 [[ -a ~/.localrc ]] && source ~/.localrc
+
+#THIS MUST BE AT THE END OF THE FILE FOR JENV TO WORK!!!
+[[ -s "/Users/moshe/.jenv/bin/jenv-init.sh" ]] && source "/Users/moshe/.jenv/bin/jenv-init.sh" && source "/Users/moshe/.jenv/commands/completion.sh"

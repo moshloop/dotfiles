@@ -14,6 +14,14 @@ alias gcm='git commit -m'
 alias gcam='git commit -a -m'
 alias gs='git status -sb'
 alias gcb='git-copy-branch-name'
+alias gup='git stash && git pull --rebase origin master && git stash pop'
+alias xpath='xmlstarlet sel -t -v'
+alias merge-all="merge eSign && merge Portal && merge EgisUI && merge BulkCapture && merge PaperTrailWeb"
+
+
+merge() {
+	github-pullrequests-merge-helper git@github.com:egis/$1.git --pattern="Update\s.+\sto\sversion"
+}
 
 gpr() {
   gp && open-pr "$*"

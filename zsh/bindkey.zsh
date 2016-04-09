@@ -8,6 +8,7 @@ bindkey "^E"      end-of-line                          # ctrl-e
 bindkey "[B"      history-search-forward               # down arrow
 bindkey "[A"      history-search-backward              # up arrow
 bindkey "^D"      delete-char                          # ctrl-d
+bindkey "^[[3~"   delete-char
 bindkey '^?'      backward-delete-char
 bindkey "^F"      forward-char                         # ctrl-f
 bindkey "^B"      backward-char                        # ctrl-b
