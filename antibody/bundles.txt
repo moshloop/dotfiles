@@ -9,3 +9,6 @@ zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-history-substring-search
 rimraf/k
 StackExchange/blackbox
+djui/alias-tips
+Tarrasch/zsh-autoenv
+tarruda/zsh-autosuggestions

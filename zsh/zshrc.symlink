@@ -35,11 +35,18 @@ done
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit && compinit
+autoload -U zargs
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}; do
   source "$file"
 done
+
+
+unset AUTOSUGGESTION_HIGHLIGHT_COLOR
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=bg=8
+unset AUTOSUGGESTION_HIGHLIGHT_CURSOR
+source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 unset config_files
 
@@ -47,6 +54,3 @@ unset config_files
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
 [[ -a ~/.localrc ]] && source ~/.localrc
-
-#THIS MUST BE AT THE END OF THE FILE FOR JENV TO WORK!!!
-[[ -s "/Users/moshe/.jenv/bin/jenv-init.sh" ]] && source "/Users/moshe/.jenv/bin/jenv-init.sh" && source "/Users/moshe/.jenv/commands/completion.sh"

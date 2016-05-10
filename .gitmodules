@@ -4,3 +4,6 @@
 [submodule "vim/vimfiles"]
   path = vim/vimfiles
   url = https://github.com/caarlos0/vimfiles.git
+[submodule "zsh-autosuggestions"]
+	path = zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions

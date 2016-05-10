@@ -23,6 +23,13 @@ merge() {
 	github-pullrequests-merge-helper git@github.com:egis/$1.git --pattern="Update\s.+\sto\sversion"
 }
 
+
+
+cleanup-merges() {
+	git fetch --all 
+	git branch -r | grep autoupdate | sed s%origin/%% | xargs -L 1 git push origin --delete 
+}
+
 gpr() {
   gp && open-pr "$*"
 }
