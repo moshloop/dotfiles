@@ -69,6 +69,12 @@ update_script() {
 	http --auth $PT_API_USER:$PT_API_PASS POST $PT_API/workflow/redeploy Content-Type:application/octet-stream 
 }
 
+#e.g. update_doc Systems/forms FORM.pdf
+update_doc() {
+	http --auth $PT_API_USER:$PT_API_PASS POST $PT_API/public/file/$2/$1 Content-Type:application/octet-stream  < $1
+}
+
+
 
 # e.g. download_script test.groovy
 download_script() {
