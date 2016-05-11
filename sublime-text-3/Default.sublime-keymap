@@ -1,14 +1,11 @@
 [
-    {
-        "command": "reveal_in_side_bar",
-        "keys": [
-            "ctrl+super+r"
-        ]
-    },
-    {
-        "command": "side_bar_rename",
-        "keys": [
-            "f2"
-        ]
-    }
+	{ "keys": ["super+k"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete Line.sublime-macro"} },
+
+
+	{ "keys": ["alt+left"], "command": "prev_view_in_stack" },
+	{ "keys": ["alt+right"], "command": "next_view_in_stack" },
+	{ "keys": ["alt+r"], "command": "reveal_in_side_bar"},
+	{ "keys": ["ctrl+left"], "command": "jump_back" },
+	{ "keys": ["ctrl+right"], "command": "jump_forward" },
+	{ "keys": ["super+alt+l"], "command": "jsbeautify"}
 ]
