@@ -7,7 +7,8 @@ __reload_dotfiles() {
 alias reload!='__reload_dotfiles'
 
 alias jup="git fetch && git rebase origin master && jekyll serve"
-alias groovy='sudo java -cp "/workspace/PT/libs/*:/workspace/PT/build/*.jar" groovy.lang.GroovyShell'
+export GROOVY_CLASSPATH=$(echo $PT/libs/*.jar $PT/build/*.jar $PT/test-libs/*.jar . | sed 's/ /:/g')
+alias groovy='sudo java -classpath $GROOVY_CLASSPATH groovy.lang.GroovyShell'
 alias rscp='rsync -v -e "ssh" --rsync-path="sudo rsync"  -arvuz --exclude ".DS_Store" --exclude ".git" '
 alias build='gulp --gulpfile $BUILD/Gulpfile.js --cwd ./'
 alias slaves='python $OPS/vm/__init__.py --type'
@@ -36,6 +37,20 @@ switch_local() {
 	export PT_API_PASS=p
 }
 
+pt_login() {
+	echo "Hostname:"
+	read PT_API
+	echo "Username:"
+	read PT_API_USER 
+	echo "Password:"
+	read PT_API_PASS 
+}
+
+
+pt_kill() {
+	sudo jps | grep Startup | cut -d" " -f 1 | xargs sudo kill -KILL
+}
+
 pt_get() {
 	http --auth $PT_API_USER:$PT_API_PASS GET "$PT_API/$1"
 }
@@ -44,9 +59,19 @@ pt_post() {
 	http --auth $PT_API_USER:$PT_API_PASS POST "$PT_API/$1"
 }
 
+pt_action() {
+	echo "executing $1 with " "$@[2,-1]"
+	pt_form action/execute/$1 "$@[2,-1]"
+}
+
 pt_form() {
 	http --form --ignore-stdin  --auth $PT_API_USER:$PT_API_PASS POST "$PT_API/$1"  "$@[2,-1]"
 }
+
+pt_deploy() {
+	pt_form action/execute/deploy_pack "file@$1"
+}
+
 
 pt_query() {
 	pt_get "document/query?columns=docId&query=$1" | jq '.items[][0] | tonumber'
@@ -54,14 +79,33 @@ pt_query() {
 
 # e.g. pt_script-e "new Date()"
 pt_script-e() {
-	pt_form script/execute "code=$1"
+	out=`pt_form script/execute "code=$1"`
+	echo $out
+
 }
 
 # e.g. pt_script test.groovy
 pt_script() {
 	script=`cat $1`
-	pt_form script/execute "code=$script"
+	out=`pt_form script/execute "code=$script"`
+	echo $out
 }
+
+
+pt_logs() {
+	ssh $1 tail -f /opt/Papertrail/nohup.out
+}
+
+
+# e.g. pt_upload System/scripts/TEST.groovy build/libTest.groovy
+pt_upload() {
+	http --auth $PT_API_USER:$PT_API_PASS POST $PT_API/public/file/$1 Content-Type:application/octet-stream  < $2
+}
+
+pt_redeploy() {
+	http --auth $PT_API_USER:$PT_API_PASS POST $PT_API/workflow/redeploy Content-Type:application/octet-stream 
+}
+
 
 # e.g. update_script test.groovy
 update_script() {
@@ -75,6 +119,9 @@ update_doc() {
 }
 
 
+pt_create() {
+	pt_form "action/execute/create_document" template="Item (no file)" filename="$1" node="$2" | jq '.docId'
+}
 
 # e.g. download_script test.groovy
 download_script() {
