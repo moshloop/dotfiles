@@ -9,9 +9,9 @@ autoload -U "$ZSH"/functions/*(:t)
 PROMPT_COMMAND='history -a'
 HISTFILE=~/.zsh_history
 HISTSIZE=500000
+SAVEHIST=$HISTSIZE
 HISTFILESIZE=100000
 HISTTIMEFORMAT='%F %T '
-
 
 # Don't record some commands
 export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear:cd:zz"
@@ -31,8 +31,7 @@ setopt EXTENDED_HISTORY
 setopt PROMPT_SUBST
 setopt CORRECT
 setopt COMPLETE_IN_WORD
-# adds history
-setopt APPEND_HISTORY
+
 # adds history incrementally and share it across sessions
 setopt INC_APPEND_HISTORY SHARE_HISTORY
 # don't record dupes in history

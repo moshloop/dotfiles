@@ -4,11 +4,10 @@ __reload_dotfiles() {
   . ~/.zshrc
   cd .
 }
-alias reload!='__reload_dotfiles'
 
+
+alias reload!='__reload_dotfiles'
 alias jup="git fetch && git rebase origin master && jekyll serve"
-export GROOVY_CLASSPATH=$(echo $PT/libs/*.jar $PT/build/*.jar $PT/test-libs/*.jar . | sed 's/ /:/g')
-alias groovy='sudo java -classpath $GROOVY_CLASSPATH groovy.lang.GroovyShell'
 alias rscp='rsync -v -e "ssh" --rsync-path="sudo rsync"  -arvuz --exclude ".DS_Store" --exclude ".git" '
 alias build='gulp --gulpfile $BUILD/Gulpfile.js --cwd ./'
 alias slaves='python $OPS/vm/__init__.py --type'
@@ -16,10 +15,21 @@ alias s3='s3cmd  --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET'
 alias grad="gradle jar && cp build/libs/egis-* $WORK_DIR/build"
 alias mvn_down='java -jar ~/.dotfiles/bin/ivy.jar -retrieve "libs/[artifact]-[type]-[revision].[ext]" '
 
+export GROOVY_HOME=/usr/local/opt/groovy/libexec
+CP() {
+	BIN=buck-out/gen/lib__mrp__output/mrp.jar
+	COMMON=/workspace/Utils/build/libs/egis-utils.jar:/workspace/misc/Kernel/build/libs/egis-kernel.jar:/workspace/PT/Core/build/papertrail-core-api.jar 
+	CLASSPATH=$(echo libs/*.jar test-libs/*.jar . | sed 's/ /:/g')
+	CLASSPATH=$CLASSPATH:$COMMON:$BIN
+	echo $CLASSPATH
+}
+
+groovy() {
+	java -classpath `CP` "groovy.lang.GroovyShell" $1
+}
 
 jenkins_load() {
 	cd /workspace/ops/ansible
-	python scripts/pt/ESX.py --esx 191.9.110.43 -a start -s "win2012-"
 	python scripts/pt/ESX.py --esx 191.9.110.43 -a start -s "ubuntu_slave"
 }
 
