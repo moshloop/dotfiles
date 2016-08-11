@@ -16,16 +16,41 @@ alias grad="gradle jar && cp build/libs/egis-* $WORK_DIR/build"
 alias mvn_down='java -jar ~/.dotfiles/bin/ivy.jar -retrieve "libs/[artifact]-[type]-[revision].[ext]" '
 
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
+alias aliases.zsh="subl -w ~/.dotfiles/zsh/aliases.zsh && source ~/.dotfiles/zsh/aliases.zsh"
+
 CP() {
-	BIN=buck-out/gen/lib__mrp__output/mrp.jar
-	COMMON=/workspace/Utils/build/libs/egis-utils.jar:/workspace/misc/Kernel/build/libs/egis-kernel.jar:/workspace/PT/Core/build/papertrail-core-api.jar 
-	CLASSPATH=$(echo libs/*.jar test-libs/*.jar . | sed 's/ /:/g')
-	CLASSPATH=$CLASSPATH:$COMMON:$BIN
+	CLASSPATH=
+	if [ -d "libs" ]; then
+		CLASSPATH=$CLASSPATH:$(echo libs/*jar | sed 's/ /:/g')
+	else
+		CLASSPATH=$CLASSPATH:$(echo $WORK_DIR/libs/*jar | sed 's/ /:/g')
+	fi
+	if [ -d "test-libs" ]; then
+		CLASSPATH=$CLASSPATH:$(echo test-libs/*jar | sed 's/ /:/g')
+	else
+		CLASSPATH=$CLASSPATH:$(echo $WORK_DIR/test-libs/*jar | sed 's/ /:/g')
+	fi
+
+
+	CLASSPATH=$CLASSPATH:$(echo $WORK_DIR/Utils/build/classes $WORK_DIR/Kernel/build/classes $WORK_DIR/Core/bin | sed 's/ /:/g')
+
+	if [ -d "build/classes/main" ]; then
+		CLASSPATH=$CLASSPATH:build/classes/main
+	fi
+
+	if [ -d "build/classes/test" ]; then
+		CLASSPATH=$CLASSPATH:build/classes/test
+	fi
+	CLASSPATH=$CLASSPATH:.
 	echo $CLASSPATH
 }
 
 groovy() {
-	java -classpath `CP` "groovy.lang.GroovyShell" $1
+	java -classpath `CP` "groovy.lang.GroovyShell"  "$@[1,-1]"
+}
+
+gtest() {
+	gradle test -x compileJava -x compileGroovy -x processResources -x compileTestJava -x compileTestGroovy -x testClasses -x classes --info "$@[1,-1]"
 }
 
 jenkins_load() {
@@ -45,16 +70,21 @@ switch_local() {
 	export PT_API=http://localhost:8080
 	export PT_API_USER=admin
 	export PT_API_PASS=p
+	export PT_USER=admin
+	export PT_PASS=p
 }
 
 pt_login() {
 	echo "Hostname:"
 	read PT_API
 	echo "Username:"
-	read PT_API_USER 
+	read PT_API_USER
+	export PT_USER=$PT_API_USER
 	echo "Password:"
-	read PT_API_PASS 
+	read PT_API_PASS
+	export PT_PASS=$PT_API_PASS
 }
+
 
 
 pt_kill() {
@@ -62,7 +92,7 @@ pt_kill() {
 }
 
 pt_get() {
-	http --auth $PT_API_USER:$PT_API_PASS GET "$PT_API/$1"
+	http --auth $PT_API_USER:$PT_API_PASS GET "$PT_API/$1" Content-Type:plain/text
 }
 
 pt_post() {
@@ -78,13 +108,9 @@ pt_form() {
 	http --form --ignore-stdin  --auth $PT_API_USER:$PT_API_PASS POST "$PT_API/$1"  "$@[2,-1]"
 }
 
-pt_deploy() {
-	pt_form action/execute/deploy_pack "file@$1"
-}
 
-
-pt_query() {
-	pt_get "document/query?columns=docId&query=$1" | jq '.items[][0] | tonumber'
+pt_logs() {
+	ssh $1 tail -f /opt/Papertrail/nohup.out
 }
 
 # e.g. pt_script-e "new Date()"
@@ -101,57 +127,3 @@ pt_script() {
 	echo $out
 }
 
-
-pt_logs() {
-	ssh $1 tail -f /opt/Papertrail/nohup.out
-}
-
-
-# e.g. pt_upload System/scripts/TEST.groovy build/libTest.groovy
-pt_upload() {
-	http --auth $PT_API_USER:$PT_API_PASS POST $PT_API/public/file/$1 Content-Type:application/octet-stream  < $2
-}
-
-pt_redeploy() {
-	http --auth $PT_API_USER:$PT_API_PASS POST $PT_API/workflow/redeploy Content-Type:application/octet-stream 
-}
-
-
-# e.g. update_script test.groovy
-update_script() {
-	http --auth $PT_API_USER:$PT_API_PASS POST $PT_API/public/file/System/scripts/$1 Content-Type:application/octet-stream  < $1
-	http --auth $PT_API_USER:$PT_API_PASS POST $PT_API/workflow/redeploy Content-Type:application/octet-stream 
-}
-
-#e.g. update_doc Systems/forms FORM.pdf
-update_doc() {
-	http --auth $PT_API_USER:$PT_API_PASS POST $PT_API/public/file/$2/$1 Content-Type:application/octet-stream  < $1
-}
-
-
-pt_create() {
-	pt_form "action/execute/create_document" template="Item (no file)" filename="$1" node="$2" | jq '.docId'
-}
-
-# e.g. download_script test.groovy
-download_script() {
-	http --auth $PT_API_USER:$PT_API_PASS GET $PT_API/public/file/System/scripts/$1/$1 > $1
-}
-
-new_token() {
-	http --body --auth $PT_API_USER:$PT_API_PASS GET "$PT_API/token/generate?url=/$1"
-}
-
-#e.g. new_form "Job Req"
-new_form() {
-	docId=`http --form --auth $PT_API_USER:$PT_API_PASS POST $PT_API/action/execute/new_form form="$1" | jq '.docId'`
-	token=`http --body --auth $PT_API_USER:$PT_API_PASS GET "$PT_API/token/generate?url=/web/eSign"`
-	open "$token?$docId"
-}
-
-#e.g. new_class "Jpb Req v1"
-new_classic() {
-	docId=`http --form --auth $PT_API_USER:$PT_API_PASS POST $PT_API/action/execute/new_form form="$1" | jq '.docId'`
-	token=`http --body --auth $PT_API_USER:$PT_API_PASS GET "$PT_API/token/generate?url=/jsForm/edit/"`
-	open "$token?$docId"
-}
