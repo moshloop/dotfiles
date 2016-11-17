@@ -49,22 +49,12 @@ groovy() {
 	java -classpath `CP` "groovy.lang.GroovyShell"  "$@[1,-1]"
 }
 
-gtest() {
-	gradle test -x compileJava -x compileGroovy -x processResources -x compileTestJava -x compileTestGroovy -x testClasses -x classes --info "$@[1,-1]"
-}
-
-jenkins_load() {
-	cd /workspace/ops/ansible
-	python scripts/pt/ESX.py --esx 191.9.110.43 -a start -s "ubuntu_slave"
-}
-
 port_forward() {
 	echo "forward $1 to $2:$3"
 	echo "
 		rdr pass on lo0 inet proto tcp from any to 127.0.0.1 port $1 ->  $2 port $3
 	" | sudo pfctl -ef -
 }
-
 
 switch_local() {
 	export PT_API=http://localhost:8080
@@ -85,45 +75,6 @@ pt_login() {
 	export PT_PASS=$PT_API_PASS
 }
 
-
-
 pt_kill() {
 	sudo jps | grep Startup | cut -d" " -f 1 | xargs sudo kill -KILL
 }
-
-pt_get() {
-	http --auth $PT_API_USER:$PT_API_PASS GET "$PT_API/$1" Content-Type:plain/text
-}
-
-pt_post() {
-	http --auth $PT_API_USER:$PT_API_PASS POST "$PT_API/$1"
-}
-
-pt_action() {
-	echo "executing $1 with " "$@[2,-1]"
-	pt_form action/execute/$1 "$@[2,-1]"
-}
-
-pt_form() {
-	http --form --ignore-stdin  --auth $PT_API_USER:$PT_API_PASS POST "$PT_API/$1"  "$@[2,-1]"
-}
-
-
-pt_logs() {
-	ssh $1 tail -f /opt/Papertrail/nohup.out
-}
-
-# e.g. pt_script-e "new Date()"
-pt_script-e() {
-	out=`pt_form script/execute "code=$1"`
-	echo $out
-
-}
-
-# e.g. pt_script test.groovy
-pt_script() {
-	script=`cat $1`
-	out=`pt_form script/execute "code=$script"`
-	echo $out
-}
-
