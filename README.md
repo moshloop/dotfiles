@@ -29,7 +29,7 @@ awesome, you might want to [read my post on the subject][post].
 Run this:
 
 ```sh
-bash -c "$(wget -O - https://raw.githubusercontent.com/egis/dotfiles/master/script/install)"
+bash -c "$(wget -O - https://raw.githubusercontent.com/Moshe-Immerma/dotfiles/master/script/install)"
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
