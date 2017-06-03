@@ -1,0 +1,1 @@
+brew install openssh openssl htop-osx python python3 grep xz  sshfs sshfs unrar xmlstarlet terminal-notifier
