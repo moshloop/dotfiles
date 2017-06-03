@@ -3,18 +3,8 @@
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
 # shellcheck disable=SC2039
-if gls &>/dev/null; then
-  alias l="gls -lAh --color"
-  alias ll="gls -l --color"
-  alias la="gls -A --color"
-else
-  alias l="ls -lAh --color"
-  alias ll="ls -l --color"
-  alias la="ls -A --color"
-fi
-alias grep="grep --color=auto"
+
 alias duf="du -sh * | sort -hr"
-alias less="less -r"
 
 if [ -z "$(command -v pbcopy)" ]; then
   if [ -n "$(command -v xclip)" ]; then
