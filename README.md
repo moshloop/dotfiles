@@ -1,4 +1,4 @@
-# moshes' dotfiles  [![DevOps By Rultor.com][rb]][rb] [![Build Status][tb]][tp]
+# moshes' dotfiles
 > Runs on Linux and OSX. Configurations for ZSH, SublimeText 3, Java, Terminals and others.
 
 
