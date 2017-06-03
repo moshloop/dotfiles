@@ -17,16 +17,3 @@ brew tap phinze/homebrew-cask || true
 brew tap caskroom/versions || true
 brew install brew-cask
 
-# usefull stuff
-PACKAGES="htop-osx heroku-toolbelt fpp gnupg httpie packer pwgen curl fasd gradle  wget redis diffmerge unrar git-extras peco"
-
-for pkg in $PACKAGES; do
-    if brew list -1 | grep -q "^${pkg}\$"; then
-        echo "Package '$pkg' is installed"
-    else
-        brew install $pkg
-    fi
-done
-
-brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql qlimagesize 
-#webpquicklook suspicious-package

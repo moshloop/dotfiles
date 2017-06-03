@@ -1,7 +1,6 @@
 #!/bin/sh
 
 
-
 alias mvncie='mvn clean install eclipse:eclipse'
 alias mvnci='mvn clean install'
 alias mvne='mvn eclipse:eclipse'
