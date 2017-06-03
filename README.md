@@ -1,13 +1,6 @@
-# carlos' dotfiles  [![DevOps By Rultor.com][rb]][rb] [![Build Status][tb]][tp]
-> Runs on Linux and OSX. Configurations for ZSH, SublimeText 3, Java, Ruby, Terminals and others.
+# moshes' dotfiles  [![DevOps By Rultor.com][rb]][rb] [![Build Status][tb]][tp]
+> Runs on Linux and OSX. Configurations for ZSH, SublimeText 3, Java, Terminals and others.
 
-![screenshot][scrn]
-
-[rb]: http://www.rultor.com/b/caarlos0/dotfiles
-[rp]: http://www.rultor.com/p/caarlos0/dotfiles
-[tb]: https://travis-ci.org/caarlos0/dotfiles.svg?branch=master
-[tp]: https://travis-ci.org/caarlos0/dotfiles
-[scrn]: https://raw.githubusercontent.com/caarlos0/dotfiles/master/screenshot.png
 
 ## dotfiles
 
@@ -20,7 +13,7 @@ up into the main areas I used (Ruby, git, system libraries, and so on), so I
 structured the project accordingly.
 
 If you're interested in the philosophy behind why projects like these are
-awesome, you might want to [read my post on the subject][post].
+awesome, you might want to [read carlos beckers post on the subject][post].
 
 [post]: http://carlosbecker.com/posts/dotfiles-are-meant-to-be-forked/
 
@@ -29,7 +22,7 @@ awesome, you might want to [read my post on the subject][post].
 Run this:
 
 ```sh
-bash -c "$(wget -O - https://raw.githubusercontent.com/egis/dotfiles/master/script/install)"
+bash -c "$(wget -O - https://raw.githubusercontent.com/moshe-immmerman/dotfiles/master/script/install)"
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
@@ -128,7 +121,7 @@ said, I do use this as *my* dotfiles, so there's a good chance I may break
 something if I forget to make a check for a dependency.
 
 If you're brand-new to the project and run into any blockers, please
-[open an issue](https://github.com/caarlos0/dotfiles/issues) on this repository
+[open an issue](https://github.com/moshe-immerman/dotfiles/issues) on this repository
 and I'd love to get it fixed for you!
 
 ## known issues
@@ -142,7 +135,7 @@ checked/linted with [Shellcheck](https://github.com/koalaman/shellcheck).
 
 ## thanks
 
-I forked [Holmans](http://github.com/holman)' excellent
-[dotfiles](http://github.com/holman/dotfiles) and tweaked it to fit my
+I forked [carlos0](https://github.com/caarlos0) excellent
+[dotfiles](http://github.com/caarlos0/dotfiles) and tweaked it to fit my
 taste. I have also copied one thing or another from other people, so,
 thanks everyone!
