@@ -8,9 +8,9 @@ autoload -U "$ZSH"/functions/*(:t)
 # Record each line as it gets issued
 PROMPT_COMMAND='history -a'
 HISTFILE=~/.zsh_history
-HISTSIZE=500000
+HISTSIZE=5000
 SAVEHIST=$HISTSIZE
-HISTFILESIZE=100000
+HISTFILESIZE=5000
 HISTTIMEFORMAT='%F %T '
 
 # Don't record some commands

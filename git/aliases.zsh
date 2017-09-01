@@ -16,9 +16,6 @@ alias gs='git status -sb'
 alias gcb='git-copy-branch-name'
 alias gup='git stash && git pull --rebase origin master && git stash pop'
 alias xpath='xmlstarlet sel -t -v'
-alias merge-all="merge eSign && merge Portal && merge EgisUI && merge BulkCapture && merge PaperTrailWeb"
-alias clean-all="clean eSign && clean Portal && clean EgisUI && clean BulkCapture && clean PaperTrailWeb"
-
 
 merge() {
 	github-pullrequests-merge-helper git@github.com:egis/$1.git --pattern="Update\s.+\sto\sversion"
@@ -31,9 +28,31 @@ clean() {
 }
 
 
+new-repo() {
+    team=158993
+    http -v --auth moshe-immerman:$GH_TOKEN POST https://api.github.com/orgs/egis/repos name=$1 private=true team_id=$team auto_init=true
+    circleci-follow $1
+    open "https://www.codacy.com/wizard/projects?orgId=3047"
+}
+
+circleci-follow() {
+  http --auth $CIRCLECI: --form POST https://circleci.com/api/v1.1/project/github/egis/$1/follow
+}
+
+
 cleanup-merges() {
 	git fetch --all
 	git branch -r | grep autoupdate | sed s%origin/%% | xargs -L 1 git push origin --delete 
+}
+
+git-fetch-all() {
+    for remote in `git branch -r  | grep -v 'HEAD\|master' `; do git branch --track $remote; done
+}
+
+git-prune() {
+    git checkout upstream/master
+    git branch -r --merged | grep origin | grep -v master | grep -v HEAD | cut -d "/" -f2 | xargs -n 1 git push --delete origin
+    git checkout master
 }
 
 gpr() {

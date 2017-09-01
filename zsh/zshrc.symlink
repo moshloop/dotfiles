@@ -1,7 +1,11 @@
 #!/bin/zsh
 # shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.dotfiles
 
+info () {
+  # shellcheck disable=SC2059
+  printf "  [ \033[00;34m..\033[0m ] $1"
+}
+export ZSH=$HOME/.dotfiles
 
 export JAVA_HOME="`/usr/libexec/java_home -v '1.8*'`"
 
@@ -15,6 +19,12 @@ export LIB_CACHE=$PT/libs
 export PROJECTS=$PT_HOME
 
 export PURE_PROMPT_SYMBOL=➜ 
+
+PROFILE_STARTUP=false
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    zmodload zsh/zprof
+fi
+
 
 # all of our zsh files
 typeset -U config_files
@@ -46,7 +56,7 @@ done
 unset AUTOSUGGESTION_HIGHLIGHT_COLOR
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=bg=8
 unset AUTOSUGGESTION_HIGHLIGHT_CURSOR
-source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 unset config_files
 
@@ -54,3 +64,8 @@ unset config_files
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
 [[ -a ~/.localrc ]] && source ~/.localrc
+
+
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    zprof
+fi

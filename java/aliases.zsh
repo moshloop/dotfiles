@@ -25,10 +25,6 @@ mvn() {
   which notify-send > /dev/null && notify-send "$message"
 }
 
-killjboss() {
-  pgrep -f jboss-modules | xargs kill -9
-}
-
 
 CP() {
     unsetopt nomatch
