@@ -1,8 +1,8 @@
 # caarlos0/dotfiles test container
-FROM ubuntu
+FROM ubuntu:16.04
 MAINTAINER Carlos Alexandro Becker <caarlos0@gmail.com>
 
-RUN apt-get install -y software-properties-common wget zsh git curl python
+RUN apt-get update && apt-get install -y software-properties-common wget zsh git curl python sudo
 
 COPY . /root/.dotfiles
 

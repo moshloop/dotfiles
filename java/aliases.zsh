@@ -14,8 +14,6 @@ alias mvnag='mvn archetype:generate'
 alias mvnnew='mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart'
 alias mvn_down='java -jar ~/.dotfiles/bin/ivy.jar -retrieve "libs/[artifact]-[type]-[revision].[ext]" '
 
-export GROOVY_HOME=/usr/local/opt/groovy/libexec
-
 
 mvn() {
   # shellcheck disable=SC2068

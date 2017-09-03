@@ -50,9 +50,7 @@ git-fetch-all() {
 }
 
 git-prune() {
-    git checkout upstream/master
     git branch -r --merged | grep origin | grep -v master | grep -v HEAD | cut -d "/" -f2 | xargs -n 1 git push --delete origin
-    git checkout master
 }
 
 gpr() {

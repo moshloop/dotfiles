@@ -7,23 +7,36 @@ info () {
 }
 export ZSH=$HOME/.dotfiles
 
-export JAVA_HOME="`/usr/libexec/java_home -v '1.8*'`"
-
-export OPS=/workspace/ops
-export WORK_DIR=/workspace/PT
-export BUILD=/workspace/misc/build-tools/
-export PT_HOME=/workspace/PT
-export PT=$PT_HOME
-export LIB_CACHE=$PT/libs
-# your project folder that we can `c [tab]` to
-export PROJECTS=$PT_HOME
-
-export PURE_PROMPT_SYMBOL=➜ 
-
 PROFILE_STARTUP=false
 if [[ "$PROFILE_STARTUP" == true ]]; then
     zmodload zsh/zprof
 fi
+
+
+
+source ~/.zplug/init.zsh
+
+
+for plugin in `cat $ZSH/zsh/plugins`; do
+     zplug "$plugin"
+done
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load --verbose
+
+
+install_plugin() {
+
+}
+
 
 
 # all of our zsh files
@@ -36,7 +49,7 @@ for file in ${(M)config_files:#*/path.zsh}; do
 done
 
 # setup antibody
-antibody bundle < "$ZSH/antibody/bundles.txt"
+#antibody bundle < "$ZSH/antibody/bundles.txt"
 
 # load everything but the path and completion files
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do

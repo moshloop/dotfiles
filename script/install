@@ -6,16 +6,23 @@ set -eo pipefail
 install_pkg() {
   if test "$(which apt-get)"; then
     sudo apt-get install -y "$@"
+  else
+    brew install "$@"
   fi
 }
 
 check_dependencies() {
-  for pkg in zsh git curl python; do
+  for pkg in zsh git curl python python-pip pyp unzip sudo; do
     if test ! "$(which $pkg)"; then
       install_pkg $pkg
     fi
+    git clone https://github.com/zplug/zplug ~/.zplug
+    # curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
   done
 }
+
+
+
 
 main() {
   if [ -d ~/.dotfiles ]; then

@@ -12,8 +12,10 @@ alias s3='s3cmd  --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET'
 alias aliases.zsh="subl -w ~/.dotfiles/zsh/aliases.zsh && source ~/.dotfiles/zsh/aliases.zsh"
 
 
-
-alias ls="exa --group-directories-first"
+if test "$(which exa)"; then
+    e "Found exa at: " "$(which exa)";
+    alias lsl="exa --group-directories-first"
+fi
 
 e() {
 	echo -e "\e[96m$@[1,-1]"
