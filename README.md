@@ -33,6 +33,10 @@ defaults, and so on. Tweak this script, and occasionally run `dot` from
 time to time to keep your environment fresh and up-to-date. You can find
 this script in `bin/`.
 
+## Extras
+
+Run `extras/install-dev.sh` and `extras/install-ops.sh` for a more complete environment
+
 ## topical
 
 Everything's built around topic areas. If you're adding a new area to your
@@ -66,6 +70,16 @@ There's a few special files in the hierarchy.
 - **topic/install.sh**: Any file with this name and with exec permission, will
 ran at bootstrap phase.
 
+## python
+
+Install pip packages from `python/pip.txt`
+
+## linux
+
+## osx
+
+Installs brew packages from `osx/brew.txt`
+
 ## plugins
 
 - [pure][pure] prompt (which is awesome!);
@@ -73,18 +87,11 @@ ran at bootstrap phase.
 - [more completions][zsh-completions];
 - fish-like [substring history search][zsh-history-substring-search];
 - [alias-tips][alias-tips] to remember you that you have an alias for that;
-- [zsh-pg][zsh-pg] a set of utilities to deal with PostgreSQL;
-- [zsh-git-sync][zsh-git-sync] to keep your repositories synced;
-- [zsh-open-pr][zsh-open-pr] to open pull requests from the command line;
-- [jvm][jvm] to manage java versions (a la rvm, but simpler);
-- [mkc][zsh-mkc] to `mkdir` and `cd` in one line.
-browser.
 
-All those are managed by [Antibody][antibody], a faster version of Antigen
-written in Go.
+All plugins are managed by [zplug][zplug] - to install a new plugin update the `zsh/plugins` file
 
 [pure]: https://github.com/sindresorhus/pure
-[antibody]: https://github.com/caarlos0/antibody
+[zplug]: https://github.com/zplug/zplug
 [jvm]: https://github.com/caarlos0/jvm
 [zsh-pg]: https://github.com/caarlos0/zsh-pg
 [alias-tips]: https://github.com/djui/alias-tips

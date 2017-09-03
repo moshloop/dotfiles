@@ -1,2 +1,3 @@
+#!/bin/sh
 
- cat pip.txt | pyp "' '.join(pp)" | xargs sudo pip install
+cat $ZSH/python/pip.txt | pyp "' '.join(pp)" | xargs sudo pip install

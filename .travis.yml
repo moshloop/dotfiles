@@ -4,9 +4,9 @@ os:
   - linux
   - osx
 install:
-  - ./build/install.sh
+  # - ./build/install.sh
 script:
   - ./build/build.sh
-  - ./install
+  - ./script/install
 notifications:
   email: false

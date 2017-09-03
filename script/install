@@ -12,23 +12,21 @@ install_pkg() {
 }
 
 check_dependencies() {
-  for pkg in zsh git curl python python-pip pyp unzip sudo; do
+  for pkg in zsh git curl python python-pip pyp unzip  sudo; do
     if test ! "$(which $pkg)"; then
       install_pkg $pkg
     fi
-    git clone https://github.com/zplug/zplug ~/.zplug
+
     # curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
   done
 }
-
-
-
 
 main() {
   if [ -d ~/.dotfiles ]; then
     echo "The '~/.dotfiles' folder already exists, please, backup it and run this again!"
     exit 1
   fi
+
   check_dependencies
   git clone --recursive https://github.com/moshe-immerman/dotfiles ~/.dotfiles
   cd ~/.dotfiles
