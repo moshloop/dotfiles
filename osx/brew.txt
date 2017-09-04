@@ -4,7 +4,6 @@ fpp
 gnu-sed
 grc
 grep
-how2
 htop-osx
 httpie
 jq

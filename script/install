@@ -3,6 +3,11 @@
 # Install dotfiles.
 set -eo pipefail
 
+success () {
+  echo $(tput setaf 2)$1$(tput sgr 0) $(tput smul)\\t$2$(tput rmul)
+}
+
+
 install_pkg() {
   if test "$(which apt-get)"; then
     sudo apt-get install -y "$@"
@@ -29,7 +34,7 @@ main() {
   git clone --recursive https://github.com/moshe-immerman/dotfiles ~/.dotfiles
   cd ~/.dotfiles
   bash script/bootstrap
-  chsh -s "$(which zsh)"
-  echo "All done! Please, restart your terminal session!"
+  success "run the following command to setup git author details" "setup_gitconfig"
+  success 'run the following command to switch to zsh as the default'   'chsh -s "$(which zsh)"'
 }
 main

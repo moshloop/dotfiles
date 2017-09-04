@@ -12,10 +12,7 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
     zmodload zsh/zprof
 fi
 
-
-
 source ~/.zplug/init.zsh
-
 
 for plugin in `cat $ZSH/zsh/plugins`; do
      zplug "$plugin"
@@ -30,14 +27,7 @@ if ! zplug check --verbose; then
 fi
 
 # Then, source plugins and add commands to $PATH
-zplug load --verbose
-
-
-install_plugin() {
-
-}
-
-
+zplug load
 
 # all of our zsh files
 typeset -U config_files
