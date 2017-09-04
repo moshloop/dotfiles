@@ -12,12 +12,10 @@ install_pkg() {
 }
 
 check_dependencies() {
-  for pkg in zsh git curl python python-pip pyp unzip  sudo; do
+  for pkg in zsh git curl python unzip  sudo; do
     if test ! "$(which $pkg)"; then
       install_pkg $pkg
     fi
-
-    # curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
   done
 }
 

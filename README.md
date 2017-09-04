@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Moshe-Immerman/dotfiles.svg?branch=master)](https://travis-ci.org/Moshe-Immerman/dotfiles)
+
 # moshes' dotfiles
 > Runs on Linux and OSX. Configurations for ZSH, SublimeText 3, Java, Terminals and others.
 

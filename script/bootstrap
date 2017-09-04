@@ -32,6 +32,9 @@ fail () {
 }
 
 setup_gitconfig () {
+  if [ "$SKIP_GITCONFIG" == "true " ]; then
+    return
+  fi
   if ! [ -f git/gitconfig.symlink ]
   then
     info 'setup gitconfig'
