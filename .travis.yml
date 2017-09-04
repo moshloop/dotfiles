@@ -7,6 +7,6 @@ install:
   # - ./build/install.sh
 script:
   - ./build/build.sh
-  - ./script/install
+  - OVERWRITE_ALL=true ./script/install
 notifications:
   email: false
