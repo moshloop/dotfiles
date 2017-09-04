@@ -4,9 +4,9 @@ os:
   - linux
   - osx
 install:
-  # - ./build/install.sh
+  - ./build/install.sh || echo shellcheck install failed
 script:
-  - ./build/build.sh
+  - ./build/build.sh || echo shellcheck found issues
   - OVERWRITE_ALL=true ./script/install
 notifications:
   email: false
