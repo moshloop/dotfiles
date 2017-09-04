@@ -7,6 +7,6 @@ install:
   # - ./build/install.sh
 script:
   - ./build/build.sh
-  - SKIP_GITCONFIG=true ./script/install
+  - ./script/install
 notifications:
   email: false
