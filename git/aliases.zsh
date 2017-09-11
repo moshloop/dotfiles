@@ -15,7 +15,6 @@ alias gcam='git commit -a -m'
 alias gs='git status -sb'
 alias gcb='git-copy-branch-name'
 alias gup='git stash && git pull --rebase origin master && git stash pop'
-alias xpath='xmlstarlet sel -t -v'
 
 merge() {
 	github-pullrequests-merge-helper git@github.com:egis/$1.git --pattern="Update\s.+\sto\sversion"
@@ -27,21 +26,27 @@ clean() {
 	cleanup-merges
 }
 
+user=$me
+
+get-team-id() {
+  response=$(http --print=b --pretty=none --auth $user:$GH_TOKEN GET https://api.github.com/orgs/$1/teams | jq -r '. | map([.name, .id | @text]  | join("="))  | join("\n")' )
+  echo $response | grep $2 | head -n 1 | cut -d= -f2
+}
+
 new-repo() {
-    team=158993
-    http -v --auth moshe-immerman:$GH_TOKEN POST https://api.github.com/orgs/egis/repos name=$1 private=true team_id=$team auto_init=true
+    team=$(get-team-id $GH_ORG  ${GH_TEAM:-Read Only})
+    http -v --auth ${GH_USER}:$GH_TOKEN POST https://api.github.com/orgs/$GH_ORG/repos name=$1 private=true team_id=$team auto_init=true
     circleci-follow $1
     open "https://www.codacy.com/wizard/projects?orgId=3047"
 }
 
 circleci-follow() {
-  http --auth $CIRCLECI: --form POST https://circleci.com/api/v1.1/project/github/egis/$1/follow
+  http --auth $CIRCLECI: --form POST https://circleci.com/api/v1.1/project/github/$GH_ORG/$1/follow
 }
-
 
 cleanup-merges() {
 	git fetch --all
-	git branch -r | grep autoupdate | sed s%origin/%% | xargs -L 1 git push origin --delete 
+	git branch -r | grep autoupdate | sed s%origin/%% | xargs -L 1 git push origin --delete
 }
 
 git-fetch-all() {
@@ -60,26 +65,19 @@ gi() {
   curl -s "https://www.gitignore.io/api/$*";
 }
 
-
-setup_gitconfig () {
-  if ! [ -f git/gitconfig.symlink ]
-  then
-    info 'setup gitconfig'
-
-    git_credential='cache'
-    if [ "$(uname -s)" == "Darwin" ]
-    then
-      git_credential='osxkeychain'
-    fi
-
-    user ' - What is your github author name?'
-    read -e git_authorname
-    user ' - What is your github author email?'
-    read -e git_authoremail
-
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.symlink.example > git/gitconfig.symlink
-
-    success 'gitconfig'
+git-pr() {
+   if [[ $(git branch | grep pr/"$1") ]]; then
+      git branch -D pr/"$1"
   fi
+  remote=origin
+  if $(git remote -v | grep upstream); then
+    remote=upstream
+  fi
+  git fetch $remote pull/"$1"/head:pr/"$1"
+  git checkout pr/"$1"
 }
 
+commit() {
+  git push origin master:$1
+  ghpr -h $1 -t $1
+}

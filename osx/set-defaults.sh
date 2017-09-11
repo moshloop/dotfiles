@@ -13,6 +13,40 @@ if [ "$(uname -s)" != "Darwin" ]; then
   exit 0
 fi
 
+chflags nohidden ~/Library;ok
+
+#running "Set Desktop as the default location for new Finder windows"
+# For other paths, use 'PfLo' and 'file:///full/path/here/'
+defaults write com.apple.finder NewWindowTarget -string "PfDe"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Desktop/";ok
+
+#running "Show hidden files by default"
+defaults write com.apple.finder AppleShowAllFiles -bool true;ok
+
+#running "Show all filename extensions"
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true;ok
+
+#running "Show status bar"
+defaults write com.apple.finder ShowStatusBar -bool true;ok
+
+#running "Show path bar"
+defaults write com.apple.finder ShowPathbar -bool true;ok
+
+#running "Keep folders on top when sorting by name (Sierra only)"
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
+#running "Save screenshots to the desktop"
+defaults write com.apple.screencapture location -string "${HOME}/Desktop";ok
+
+#running "Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)"
+defaults write com.apple.screencapture type -string "png";ok
+
+#running "Disable shadow in screenshots"
+defaults write com.apple.screencapture disable-shadow -bool true;ok
+
+#running "Enable subpixel font rendering on non-Apple LCDs"
+defaults write NSGlobalDomain AppleFontSmoothing -int 2;ok
+
 # Disable press-and-hold for keys in favor of key repeat.
 defaults write -g ApplePressAndHoldEnabled -bool false
 

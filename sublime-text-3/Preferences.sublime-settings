@@ -1,46 +1,109 @@
 {
-	"bold_folder_labels": true,
-	"caret_style": "phase",
-	"color_scheme": "Packages/User/base16-ocean.dark (SL).tmTheme",
-	"default_line_ending": "unix",
-	"ensure_newline_at_eof_on_save": true,
+	"auto_complete_size_limit": 100304,
+	"binary_file_patterns":
+	[
+		"*.dds",
+		"*.eot",
+		"*.gif",
+		"*.ico",
+		"*.jar",
+		"*.jpeg",
+		"*.jpg",
+		"*.pdf",
+		"*.png",
+		"*.swf",
+		"*.tga",
+		"*.ttf",
+		"*.zip",
+		"/workspace/IntelliJ/**",
+		"Mobile-Legacy/**",
+		"WebApp/**",
+		"WebComponents/**",
+		"esdoc/**",
+		"jsdoc/**",
+		"tmp/**"
+	],
+	"color_scheme": "Packages/User/SublimeLinter/Twilight (SL).tmTheme",
+	"ensure_newline_at_eof_on_save": false,
 	"file_exclude_patterns":
 	[
-		".project",
-		".classpath",
-		"*.iml",
+		"*.pyc",
+		"*.pyo",
+		"*.exe",
+		"*.dll",
+		"*.obj",
+		"*.o",
+		"*.a",
+		"*.lib",
+		"*.so",
+		"*.dylib",
+		"*.ncb",
+		"*.sdf",
+		"*.suo",
+		"*.pdb",
+		"*.idb",
 		".DS_Store",
-		"*.orig"
+		"*.class",
+		"*.psd",
+		"*.db",
+		"*.sublime-workspace",
+		"Desktop.ini",
+		"._*",
+		"Thumbs.db",
+		".Spotlight-V100",
+		".Trashes"
 	],
 	"folder_exclude_patterns":
 	[
-		"target",
+		".svn",
 		".git",
-		".settings",
-		".idea"
+		".hg",
+		"CVS",
+		"node_modules",
+		"bower_components",
+		"dist",
+		"build",
+		"bin",
+		"work",
+		".sass-cache",
+		"data-dir",
+		"data-dirs",
+		"index-dir"
 	],
-	"font_face": "Hack",
-	"font_size": 15,
-	"highlight_line": true,
+	"font_size": 14,
 	"highlight_modified_tabs": true,
+	"hot_exit": true,
 	"ignored_packages":
 	[
-		"Markdown",
+		"All Autocomplete",
+		"Anaconda",
+		"JavaScript Completions",
+		"JavaScriptNext - ES6 Syntax",
+		"SublimeCodeIntel",
+		"SublimeLinter-jshint",
+		"tern_for_sublime",
 		"Vintage"
 	],
-	"line_padding_bottom": 1,
-	"line_padding_top": 1,
-	"rulers":
+	"index_exclude_patterns":
 	[
-		80
+		"/workspace/old*",
+		"/workspace/PT/AdminWebApp*",
+		"/workspace/PT/eSign/coverage*",
+		"/workspace/PT/WebComponents*",
+		"*.log",
+		"/workspace/PT/WebApp*"
 	],
-	"spacegray_sidebar_font_xlarge": true,
-	"spacegray_sidebar_tree_xlarge": true,
-	"spacegray_tabs_auto_width": true,
-	"spacegray_tabs_font_normal": true,
-	"spacegray_tabs_normal": true,
-	"tab_size": 2,
-	"theme": "Spacegray.sublime-theme",
+	"java_import_path":
+	[
+		"/workspace/PT/libs/*.jar",
+		"/Library/Java/JavaVirtualMachines/jdk1.7.0_55.jdk/Contents/Home/src.zip"
+	],
+	"line_padding_bottom": 5,
+	"match_brackets": true,
+	"match_brackets_angle": true,
+	"open_files_in_new_window": false,
+	"remember_open_files": true,
 	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": true
+	"trim_trailing_white_space_on_save": true,
+	"word_wrap": true
 }

@@ -1,7 +1,10 @@
 #!/bin/sh
 
+
 if [ "$(uname -s)" = "Darwin" ]; then
-  brew cask install sublime-text3
+  if [ ! -e '/Applications/Sublime Text.app' ]; then
+     brew cask install sublime-text
+  fi
   ST3_LOCAL="$HOME/Library/Application Support/Sublime Text 3"
 else
   ST3_LOCAL="$HOME/.config/sublime-text-3"
