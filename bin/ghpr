@@ -112,7 +112,7 @@ if [[ $FAKE ]]; then
 else
   RESPONSE=$(curl -s -H "Authorization: token $ACCESS_TOKEN" -H "Content-Type: application/json" -d "$BODY" $PR_URL)
 fi
-URL=$(echo $RESPONSE | jq '.html_url' )
+URL=$(echo $RESPONSE | jq -r '.html_url' )
 if [[ -n $URL ]]; then
   echo $URL
   open $URL

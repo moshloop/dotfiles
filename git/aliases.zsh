@@ -14,7 +14,13 @@ alias gcm='git commit -m'
 alias gcam='git commit -a -m'
 alias gs='git status -sb'
 alias gcb='git-copy-branch-name'
-alias gup='git stash && git pull --rebase origin master && git stash pop'
+
+gup() {
+    BRANCH=$(git branch | grep '*' | sed 's/*//' | sed 's/ //')
+    git stash
+    git pull --rebase origin $BRANCH
+    git stash pop
+}
 
 merge() {
 	github-pullrequests-merge-helper git@github.com:egis/$1.git --pattern="Update\s.+\sto\sversion"
@@ -26,15 +32,22 @@ clean() {
 	cleanup-merges
 }
 
-user=$me
 
 get-team-id() {
-  response=$(http --print=b --pretty=none --auth $user:$GH_TOKEN GET https://api.github.com/orgs/$1/teams | jq -r '. | map([.name, .id | @text]  | join("="))  | join("\n")' )
+  response=$(http --print=b --pretty=none --auth $me:$GH_TOKEN GET https://api.github.com/orgs/$1/teams)
+  response=$( echo $response | jq -r '. | map([.name, .id | @text]  | join("="))  | join("\n")' )
   echo $response | grep $2 | head -n 1 | cut -d= -f2
 }
 
 new-repo() {
-    team=$(get-team-id $GH_ORG  ${GH_TEAM:-Read Only})
+  echo "Getting team id: $GH_ORG $2"
+    team=$(get-team-id $GH_ORG $2)
+    echo "team-id = $team"
+    if [[ "$team" = "" ]]; then
+      echo "Could not find team: $GH_ORG:$2"
+      exit 1
+    fi
+    echo "Creating repo $1 owned by $GH_ORG:$2"
     http -v --auth ${GH_USER}:$GH_TOKEN POST https://api.github.com/orgs/$GH_ORG/repos name=$1 private=true team_id=$team auto_init=true
     circleci-follow $1
     open "https://www.codacy.com/wizard/projects?orgId=3047"
