@@ -11,6 +11,10 @@ alias rscp='rsync -v -e "ssh" --rsync-path="sudo rsync"  -arvuz --exclude ".DS_S
 alias s3='s3cmd  --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET'
 alias aliases.zsh="subl -w ~/.dotfiles/zsh/aliases.zsh && source ~/.dotfiles/zsh/aliases.zsh"
 
+function find-exec {
+  find . -type f -iname "*${1:-}*" -exec "${2:-file}" '{}' \;
+}
+
 
 if test "$(which exa)"; then
     e "Found exa at: " "$(which exa)";

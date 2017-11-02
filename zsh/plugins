@@ -1,7 +1,6 @@
-sindresorhus/pure
 mafredri/zsh-async
+sindresorhus/pure
 zsh-users/zsh-completions
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-history-substring-search
 tarruda/zsh-autosuggestions
-egis/pt.zsh

@@ -4,7 +4,7 @@ export CLICOLOR=true
 
 fpath=($ZSH/functions $fpath)
 
-autoload -U "$ZSH"/functions/*(:t)
+# autoload -U "$ZSH"/functions/*(:t)
 # Record each line as it gets issued
 PROMPT_COMMAND='history -a'
 HISTFILE=~/.zsh_history
