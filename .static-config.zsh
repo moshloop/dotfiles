@@ -1,0 +1,30 @@
+source /Users/moshe/.dotfiles/java/path.zsh
+source /Users/moshe/.dotfiles/node/path.zsh
+source /Users/moshe/.dotfiles/postgres/path.zsh
+source /Users/moshe/.dotfiles/system/path.zsh
+source /Users/moshe/.dotfiles/ansible/aliases.zsh
+source /Users/moshe/.dotfiles/docker/aliases.zsh
+source /Users/moshe/.dotfiles/aws/aliases.zsh
+source /Users/moshe/.dotfiles/functions/aliases.zsh
+source /Users/moshe/.dotfiles/git/aliases.zsh
+source /Users/moshe/.dotfiles/homebrew/aliases.zsh
+source /Users/moshe/.dotfiles/java/aliases.zsh
+source /Users/moshe/.dotfiles/k8/aliases.zsh
+source /Users/moshe/.dotfiles/node/aliases.zsh
+source /Users/moshe/.dotfiles/osx/aliases.zsh
+source /Users/moshe/.dotfiles/plugins/pt.zsh
+source /Users/moshe/.dotfiles/python/aliases.zsh
+source /Users/moshe/.dotfiles/ssh/aliases.zsh
+source /Users/moshe/.dotfiles/system/aliases.zsh
+source /Users/moshe/.dotfiles/system/env.zsh
+source /Users/moshe/.dotfiles/system/grc.zsh
+source /Users/moshe/.dotfiles/zsh/aliases.zsh
+source /Users/moshe/.dotfiles/zsh/bindkey.zsh
+source /Users/moshe/.dotfiles/zsh/config.zsh
+source /Users/moshe/.dotfiles/zsh/fpath.zsh
+source /Users/moshe/.dotfiles/zsh/plugins.zsh
+source /Users/moshe/.dotfiles/zsh/prompt.zsh
+source /Users/moshe/.dotfiles/zsh/pure.zsh
+autoload -U compinit && compinit
+autoload -U zargs
+source /Users/moshe/.dotfiles/zsh/completion.zsh

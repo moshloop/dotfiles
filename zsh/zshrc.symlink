@@ -11,6 +11,7 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
 fi
 
 source $ZSH/zsh/plugins.zsh
+source $ZSH/zsh/pure.zsh
 
 if [[ ! -f  $ZSH/.static-config.zsh ]]; then
 
@@ -63,3 +64,9 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
     zprof
 fi
 echo `stopwatch $BEGIN`
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/moshe/.sdkman"
+[[ -s "/Users/moshe/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/moshe/.sdkman/bin/sdkman-init.sh"
+
+command -v vg >/dev/null 2>&1 && eval "$(vg eval --shell zsh)"

@@ -1,5 +1,5 @@
 {
   "env": {
-    "GOPATH": "$HOME/Code/Go"
+    "GOPATH": "/work/go;/work/go/external"
   }
 }

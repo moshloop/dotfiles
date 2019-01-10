@@ -1,0 +1,4 @@
+#!/bin/bash
+xmlstarlet c14n --without-comments $1 > $1.new
+xmllint --format $1.new > $1
+rm $1.new

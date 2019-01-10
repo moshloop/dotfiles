@@ -10,8 +10,6 @@ bindkey "[A"      history-search-backward              # up arrow
 bindkey "^D"      delete-char                          # ctrl-d
 bindkey "^[[3~"   delete-char
 bindkey '^?'      backward-delete-char
-bindkey "^F"      forward-char                         # ctrl-f
-bindkey "^B"      backward-char                        # ctrl-b
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
+bindkey "^F"      forward-word                         # ctrl-f
+bindkey "^B"      backward-word                       # ctrl-b
 bindkey -e   # Default to standard emacs bindings, regardless of editor string

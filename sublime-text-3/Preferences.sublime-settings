@@ -23,7 +23,7 @@
 		"jsdoc/**",
 		"tmp/**"
 	],
-	"color_scheme": "Packages/User/SublimeLinter/Twilight (SL).tmTheme",
+	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
 	"ensure_newline_at_eof_on_save": false,
 	"file_exclude_patterns":
 	[
@@ -61,25 +61,19 @@
 		"CVS",
 		"node_modules",
 		"bower_components",
-		"dist",
-		"build",
-		"bin",
-		"work",
 		".sass-cache",
 		"data-dir",
 		"data-dirs",
 		"index-dir"
 	],
-	"font_size": 14,
+	"font_size": 21,
 	"highlight_modified_tabs": true,
 	"hot_exit": true,
 	"ignored_packages":
 	[
 		"All Autocomplete",
-		"Anaconda",
 		"JavaScript Completions",
 		"JavaScriptNext - ES6 Syntax",
-		"SublimeCodeIntel",
 		"SublimeLinter-jshint",
 		"tern_for_sublime",
 		"Vintage"
@@ -103,6 +97,8 @@
 	"match_brackets_angle": true,
 	"open_files_in_new_window": false,
 	"remember_open_files": true,
+	"tab_size": 2,
+	"theme": "Default.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
 	"word_wrap": true

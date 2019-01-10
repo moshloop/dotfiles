@@ -51,7 +51,6 @@ fail () {
   # shellcheck disable=SC2059
   printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
   echo ''
-  exit
 }
 
 function repeat()       # Repeat n times command.
@@ -61,11 +60,6 @@ function repeat()       # Repeat n times command.
     for ((i=1; i <= max ; i++)); do  # --> C-like syntax
         eval "$@";
     done
-}
-
-function tree()
-{
-   find -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/";
 }
 
 #!/bin/sh
@@ -132,7 +126,7 @@ server() {
 }
 
 function epoch() {
-  echo `python -c "import time; print  '{:0.0f}'.format(time.time() * 1000)"`
+  echo `python -c "import time; print  ('{:0.0f}'.format(time.time() * 1000))"`
 }
 
 

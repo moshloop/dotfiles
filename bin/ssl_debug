@@ -1,0 +1,105 @@
+#!/usr/bin/python
+# -*- coding: utf8-*-
+
+from subprocess import *
+import subprocess
+from cryptography import x509
+from cryptography.x509.oid import NameOID
+from cryptography.hazmat.backends import default_backend
+import sys
+import site
+import os
+
+is_a_tty = hasattr(sys.stdout, 'isatty') and sys.stdout.isatty()
+TICK='✓'
+CROSS='❌'
+if is_a_tty:
+    TICK="\033[32m%s\033[0m" % TICK
+else:
+    CROSS="\033[41m%s\033[0m" % ('X')
+
+
+def info(s):
+    return "\033[34m%s\033[0m" % s
+
+END="-----END CERTIFICATE-----"
+
+
+
+def execute(command, async=False):
+    try:
+
+        proc = subprocess.Popen(command,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            shell=True)
+
+        out = proc.stdout.read();
+    except Exception as e:
+        print (str(e))
+        return str(e)
+    out = out.decode('ascii')
+    if "command not found" not in out:
+        return out
+    return out
+
+
+def cn(name):
+    try:
+        names = name.get_attributes_for_oid(NameOID.COMMON_NAME)
+        return names[0].value if len(names) > 0 else str(name)
+    except:
+        return "ERROR"
+
+
+def append(ca,cert):
+    with open(ca, "a") as file:
+        file.write(cert + "\n")
+
+def list_certs(pem):
+    pem_data=""
+    certs=[]
+    for line in pem.split("\n"):
+        pem_data += line + "\n"
+        if line.startswith(END):
+            cert = x509.load_pem_x509_certificate(pem_data, default_backend())
+            try:
+                certs.append("%s: %s issued by %s" % (cert.serial_number,cn(cert.subject),cn(cert.issuer)))
+            except:
+                certs += ("ERROR: %s" % cert)
+            pem_data = ""
+    return certs
+
+def list():
+    return
+
+def cacerts():
+    locations = [ "/usr/local/etc/openssl/cert.pem", '/etc/ssl/cert.pem']
+    paths = site.getsitepackages()
+    paths.extend(['/usr/local/Cellar/python3','/usr/local/Cellar/python', '/usr/local/lib/python3.6','/usr/local/lib'])
+    for path in paths:
+        if os.path.exists(str(path)):
+            files = execute("find %s -iname 'ca*.pem'" % path)
+            locations.extend(files.split("\n"))
+    return [l for l in locations if os.path.exists(l)]
+
+
+
+
+def get():
+    print(execute("echo | openssl s_client -connect %s -showcerts | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'" % (sys.argv[1])) + "\n" )
+
+
+if len(sys.argv) == 1 or sys.argv[1] == "list":
+   print ("\n".join(list_certs(sys.stdin.read())))
+elif len(sys.argv) == 2 and sys.argv[1] == "cacerts":
+   print("\n".join(cacerts()))
+elif len(sys.argv) == 2 and sys.argv[1] == "test":
+    for cert in list_certs(sys.stdin.read()):
+        print(info(cert))
+        for ca in cacerts():
+            certs = [x.split(":")[0] for x in list_certs(open(ca, 'r').read())]
+            print ("%s  %s" % ( TICK if cert.split(":")[0] in certs else CROSS, str(ca) ))
+else:
+    get()
+

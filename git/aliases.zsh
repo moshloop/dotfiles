@@ -15,6 +15,15 @@ alias gcam='git commit -a -m'
 alias gs='git status -sb'
 alias gcb='git-copy-branch-name'
 
+gsf() {
+  find . -maxdepth 2 -type d -name .git -print -execdir git status \;
+}
+
+gpt() {
+  git push origin $( git tag | tail -n 1 )
+  git push origin master
+}
+
 gup() {
     BRANCH=$(git branch | grep '*' | sed 's/*//' | sed 's/ //')
     git stash

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+filter=$1
+dest=$2
+
+for img in $(docker images --format "{{.Repository}}:{{.Tag}}" | grep -v $(echo $2 | cut -d/ -f1) | grep $1); do
+
+# for img in $(docker images | grep -v none | grep -v REPOSITORY | awk '{print $1":"$2}'); do
+
+  name=$(basename $img)
+  docker tag $img $dest/$img
+  docker push $dest/$img
+
+done

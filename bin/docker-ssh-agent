@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker run -u 1001 --rm -d -v ssh:/ssh --name=ssh-agent whilp/ssh-agent:latest
+docker run -u 1001 --rm -v ssh:/ssh -v $HOME:$HOME -it whilp/ssh-agent:latest ssh-add $HOME/.ssh/id_rsa*

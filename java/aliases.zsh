@@ -55,6 +55,6 @@ CP() {
     echo $CLASSPATH
 }
 
-groovy() {
-    java -classpath `CP` "groovy.lang.GroovyShell"  "$@[1,-1]"
-}
+# groovy() {
+#     java -classpath `CP` "groovy.lang.GroovyShell"  "$@[1,-1]"
+# }
