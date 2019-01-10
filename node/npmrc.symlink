@@ -1,2 +1,2 @@
-prefix=/Users/moshe/.npm
+prefix=$HOME/.npm
 strict-ssl=false

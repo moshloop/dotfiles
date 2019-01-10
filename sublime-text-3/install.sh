@@ -27,6 +27,6 @@ done
 
 # Link all sublime-settings files
 ln -sf "$ZSH/sublime-text-3/"*.sublime-settings "$ST3_LOCAL/Packages/User/"
-
+ln -sf "$ZSH/sublime-text-3/SublimeLinter" "$ST3_LOCAL/Packages/User/"
 unset ST3_LOCAL
 unset PKG_CTRL_FILE
