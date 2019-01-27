@@ -1,0 +1,1 @@
+sudo curl -o /usr/local/bin/kubectl-import https://raw.githubusercontent.com/bitnami-labs/kubectl-import/master/kubectl-import && sudo chmod 0755 /usr/local/bin/kubectl-import
