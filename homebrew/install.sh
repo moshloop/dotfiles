@@ -15,5 +15,3 @@ fi
 # more formualae
 brew tap phinze/homebrew-cask || true
 brew tap caskroom/versions || true
-brew install brew-cask
-

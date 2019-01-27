@@ -6,7 +6,7 @@ fastscripts
 firefox
 gimp
 GoLand
-iterm
+iterm2
 pulse-secure
 setapp
 skype
