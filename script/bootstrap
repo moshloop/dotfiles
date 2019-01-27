@@ -122,13 +122,5 @@ install_dotfiles () {
 
 install_dotfiles
 
-info "installing dependencies"
-if ./bin/dot
-then
-  success "dependencies installed"
-else
-  fail "error installing dependencies"
-fi
-
 echo ''
 echo '  All installed!'

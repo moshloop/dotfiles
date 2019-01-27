@@ -3,38 +3,12 @@
 # Install dotfiles.
 set -eo pipefail
 
-success () {
-  echo $(tput setaf 2)$1$(tput sgr 0) $(tput smul)\\t$2$(tput rmul)
-}
-
-
-install_pkg() {
-  if test "$(which apt-get)"; then
-    sudo apt-get install -y "$@"
-  else
-    brew install "$@"
-  fi
-}
-
-check_dependencies() {
-  for pkg in zsh git curl python unzip  sudo; do
-    if test ! "$(which $pkg)"; then
-      install_pkg $pkg
-    fi
-  done
-}
-
-main() {
-  if [ -d ~/.dotfiles ]; then
-    echo "The '~/.dotfiles' folder already exists, please, backup it and run this again!"
-    exit 1
-  fi
-
-  check_dependencies
-  git clone --recursive https://github.com/moshe-immerman/dotfiles ~/.dotfiles
-  cd ~/.dotfiles
-  bash script/bootstrap
-  success "run the following command to setup git author details" "setup_gitconfig"
-  success 'run the following command to switch to zsh as the default'   'chsh -s "$(which zsh)"'
-}
-main
+brew install  zsh git curl python unzip
+git clone --recursive https://github.com/moshloop/dotfiles ~/.dotfiles
+cd ~/.dotfiles
+chsh -s "$(which zsh)"
+./script/bootstrap
+git ls-tree --name-only -r HEAD | grep install.sh | while read -r installer; do
+  echo "› ${installer}..."
+  sh -c "$installer"
+done
