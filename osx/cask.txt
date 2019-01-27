@@ -5,9 +5,11 @@ dropbox
 fastscripts
 firefox
 gimp
-GoLand
+goland
+google-backup-and-sync
 iterm2
-pulse-secure
+microsoft-office
+quicklook-json
 setapp
 skype
 skype-for-business
@@ -15,5 +17,7 @@ slack
 spotify
 typora
 virtualbox
+virtualbox-extension-pack
 vmware-fusion
+whatsapp
 wireshark
