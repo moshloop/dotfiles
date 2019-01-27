@@ -1,5 +1,3 @@
-Package
------------------------------
 arrow
 aws-lambda-builders
 aws-sam-cli
@@ -60,4 +58,3 @@ websocket-client
 Werkzeug
 wheel
 whichcraft
-Could

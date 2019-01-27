@@ -2,7 +2,7 @@ adobe-acrobat-reader
 ccmenu
 docker
 dropbox
-fast-scripts
+fastscripts
 firefox
 gimp
 GoLand

@@ -1,3 +1,4 @@
 #!/bin/sh
 
-cat $ZSH/python/pip.txt | pyp "' '.join(pp)" | xargs sudo pip install
+pip install pyp
+cat $HOME/.dotfiles/python/pip.txt | pyp "' '.join(pp)" | xargs sudo pip install

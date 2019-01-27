@@ -2,7 +2,6 @@ adns
 adr-tools
 allure
 ant
-assume-role
 autojump
 awless
 awscli
