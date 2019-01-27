@@ -1,0 +1,1 @@
+tell application "Chrome" to activate

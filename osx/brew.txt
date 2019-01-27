@@ -1,7 +1,6 @@
 adns
 adr-tools
 allure
-ansible-cmdb
 ant
 assume-role
 autojump
@@ -15,13 +14,8 @@ bindfs
 c-ares
 cairo
 ccat
-cfengine
-conjure-up
 coreutils
 curl
-curl-httpie
-curlie
-db-cli
 dep
 dependency-check
 docker-ls
@@ -44,7 +38,6 @@ gdrive
 gettext
 git
 git-extras
-git-subrepo
 glib
 glide
 gmp
@@ -60,7 +53,6 @@ godep
 gomplate
 gopass
 gradle
-graphite2
 graphviz
 grc
 grep
@@ -68,8 +60,6 @@ groovy
 harfbuzz
 htop
 httpie
-hub
-hugo
 icu4c
 ifstat
 iidy
@@ -77,14 +67,7 @@ jid
 jp
 jpeg
 jq
-juju
-juju-wait
-jx
-kops
-kube-prompt
 kubectx
-kubernetes-cli
-kubernetes-helm
 libassuan
 libev
 libffi
@@ -100,7 +83,6 @@ libunistring
 libusb
 libyaml
 libzip
-liquibase
 lmdb
 lua@5.1
 maven
@@ -127,11 +109,9 @@ pandoc
 pango
 pass
 pcre
-phraseapp
 pinentry
 pixman
 pkg-config
-postgresql
 protobuf
 pwgen
 python
@@ -153,7 +133,6 @@ terminal-notifier
 terraform
 textql
 tldr
-tokyo-cabinet
 travis
 tree
 ucl

@@ -1,16 +1,7 @@
 #!/bin/bash
 [ "$(uname -s)" != "Darwin" ] && exit 0
 
-# sudo easy_install pip
-# sudo pip install pyp
-pkgs=`brew list -1`
-
-
-for pkg in `cat brew.txt`; do
-    if [[ $pkgs == *"$pkg"* ]]; then
-        echo $pkg already installed
-    else
-        echo install $pkg
-        brew install $pkg
-    fi
-done
+ln -s $HOME/.dotfiles/osx/Scripts $HOME/Library/Scripts
+brew install $(cat ~/.dotfiles/osx/brew.txt)
+brew cask install $(cat ~/.dotfiles/osx/cask.txt)
+$HOME/.dotfiles/osx/set-defaults.sh
