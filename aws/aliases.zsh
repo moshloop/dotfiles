@@ -95,7 +95,7 @@ aws_assume() {
 }
 
 get_current_account() {
-   account=$(awless whoami --account-only)
+   account=$(aws sts get-caller-identity | jq -r '.Account')
    if [[ "${accounts[$account]}" != "" ]]; then
     account=${accounts[$account]}
    fi
