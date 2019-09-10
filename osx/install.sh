@@ -2,7 +2,11 @@
 [ "$(uname -s)" != "Darwin" ] && exit 0
 
 rm -rf $HOME/Library/Scripts
-ln -s $HOME/.dotfiles/osx/Scripts $HOME/Library/Scripts
-brew install $(cat ~/.dotfiles/osx/brew.txt)
-brew cask install $(cat ~/.dotfiles/osx/cask.txt)
+cp $HOME/.dotfiles/osx/Scripts/* /Library/Scripts/
+for app in $(cat ~/.dotfiles/osx/brew.txt); do
+	brew install $app
+done
+for app in $(cat ~/.dotfiles/osx/cask.txt); do
+	brew cask install $app
+done
 $HOME/.dotfiles/osx/set-defaults.sh

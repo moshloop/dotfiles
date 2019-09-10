@@ -5,6 +5,17 @@
 function k() {
     kubectl $@
 }
+
+func kdeletefailed() {
+    IFS=$(echo -en "\n\b")
+    for po in $(kubectl get po --all-namespaces | grep -v Running | grep -v CrashLoopBackOff); do kubectl delete po -n $(echo $po | awk '{print $1}') $(echo $po | awk '{print $2}'); done
+}
+
+function kcleanup() {
+
+    kubectl get po | grep -v Running | grep -v Pending | grep -v ContainerCreating | awk '{print $1}' | xargs kubectl delete po
+
+}
 function kuse() {
     kubectl config set-context $(kubectl config current-context) --namespace=$1
 }
@@ -15,6 +26,18 @@ function kctx() {
 function kns() {
     context=$(kubectl config current-context)
     kubectl config set-context $context --namespace=$1
+}
+
+
+function kubectl-rename-context() {
+    auth_info=$(kubectl config get-contexts $1 | awk '{print $4}' | tail -n 1)
+    kubectl config set-context $2 --cluster $1 --user $auth_info
+    kubectl config delete-context $1
+}
+
+function kubectl-import-context() {
+    export KUBECONFIG=$HOME/.kube/config:$1
+    kubectl config view --flatten > $HOME/.kube/config
 }
 
 function kdall() {

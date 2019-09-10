@@ -1,0 +1,23 @@
+
+#f1
+
+#fn - 0x7A:  say f1
+
+#F3
+fn - 0x63 : osascript -e 'tell application "Chrome" to activate'
+
+# F2
+#fn -  0x78 : osascript -e 'tell application "Visual Studio Code" to activate'
+
+# f4
+fn - 0x76 : osascript -e 'tell application "Slack" to activate'
+
+
+#f5
+fn - 0x60 :  osascript -e 'tell application "Visual Studio Code" to activate'
+#f6
+
+#fn - 0x61 : say f6
+
+#f7
+#fn - 0x62 : say f7

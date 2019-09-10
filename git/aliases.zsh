@@ -15,6 +15,11 @@ alias gcam='git commit -a -m'
 alias gs='git status -sb'
 alias gcb='git-copy-branch-name'
 
+gtp() {
+  git tag $1
+  git push origin $1
+}
+
 gsf() {
   find . -maxdepth 2 -type d -name .git -print -execdir git status \;
 }

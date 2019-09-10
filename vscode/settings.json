@@ -1,0 +1,85 @@
+{
+    "files.hotExit": "onExit",
+    "editor.matchBrackets": true,
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": true,
+    "editor.wordWrap": "on",
+    "editor.formatOnPaste": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.snippetSuggestions": "top",
+    "editor.fontSize": 14,
+    "editor.fontFamily": "Monaco, 'Courier New', monospace",
+    "editor.minimap.enabled": false,
+    "vs-kubernetes": {
+        "vs-kubernetes.helm-path": "/Users/P01moshealei/.vs-kubernetes/tools/helm/darwin-amd64/helm",
+        "vs-kubernetes.draft-path": "/Users/P01moshealei/.vs-kubernetes/tools/draft/darwin-amd64/draft",
+        "vs-kubernetes.minikube-path": "/Users/P01moshealei/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
+    },
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "window.zoomLevel": 0,
+        "window.newWindowDimensions": "maximized",
+    "cSpell.userWords": [
+        "Kubernetes",
+        "Repos",
+        "Sysctls",
+        "centos",
+        "cloudinit",
+        "kubeadm",
+        "minified",
+        "repo",
+        "rhel",
+        "systemd",
+        "uuid"
+    ],
+    "python.jediEnabled": false,
+    "files.exclude": {
+        "__pycache__": true,
+        "**/__pycache__": true,
+        "**/*.egg-info": true,
+        "**/*.pyc": true
+    },
+    "files.associations": {
+        "Jenkinsfile": "jenkins"
+    },
+    "workbench.statusBar.feedback.visible": false,
+    "go.languageServerExperimentalFeatures": {
+        "diagnostics": false, // for build and vet errors as you type
+        "findReferences": true // for finding in-package references
+    },
+    "[go]": {
+        "editor.snippetSuggestions": "none",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "gopls": {
+        "usePlaceholders": true // add parameter placeholders when completing a function
+    },
+    "files.eol": "\n", // formatting only supports LF line endings
+
+    "go.lintTool": "revive",
+    "go.autocompleteUnimportedPackages": true,
+    "editor.scrollBeyondLastLine": false,
+    "editor.wordWrapColumn": 120,
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "search.exclude": {
+        "**/build": true
+    },
+    "search.useGlobalIgnoreFiles": true,
+    "workbench.editor.closeOnFileDelete": true,
+    "workbench.editor.highlightModifiedTabs": true,
+    "files.insertFinalNewline": true,
+    "workbench.commandPalette.preserveInput": true,
+    "editor.parameterHints.cycle": true,
+    "breadcrumbs.enabled": true,
+    "gitlens.views.repositories.files.layout": "list",
+    "go.formatTool": "gofmt",
+    "jsonnet.libPaths": {
+        "vendor/"
+    },
+}

@@ -15,3 +15,6 @@ brew() {
       ;;
   esac
 }
+
+export HOMEBREW_NO_AUTO_UPDATE=true
+export HOMEBREW_NO_ANALYTICS=true

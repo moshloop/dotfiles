@@ -1,1 +1,0 @@
-tell application "slack" to activate

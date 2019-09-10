@@ -1,7 +1,6 @@
 adns
 adr-tools
 allure
-ant
 autojump
 awscli
 azure-cli
@@ -43,16 +42,12 @@ gnu-tar
 gnupg
 gnutls
 go
-goaccess
 gobject-introspection
-godep
 gomplate
 gopass
-gradle
 graphviz
 grc
 grep
-groovy
 harfbuzz
 htop
 httpie
@@ -63,6 +58,7 @@ jid
 jp
 jpeg
 jq
+kubectl-debug
 kubectx
 libassuan
 libev
@@ -113,6 +109,7 @@ readline
 ripgrep
 s-lang
 s3cmd
+skhd
 sqlite
 sshfs
 sshpass
@@ -126,7 +123,7 @@ unison
 unixodbc
 unrar
 upx
-vgo
+watchexec
 webp
 wget
 xml-coreutils

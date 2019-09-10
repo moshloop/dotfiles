@@ -2,10 +2,8 @@ adobe-acrobat-reader
 ccmenu
 docker
 dropbox
-fastscripts
 firefox
 gimp
-goland
 google-backup-and-sync
 iterm2
 microsoft-office
@@ -21,3 +19,5 @@ virtualbox-extension-pack
 vmware-fusion
 whatsapp
 wireshark
+visual-studio-code
+font-hack-nerd-font

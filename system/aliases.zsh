@@ -26,3 +26,7 @@ fi
 nonascii() {
   LANG=C grep --color=always '[^ -~]\+';
 }
+
+alias wget="wget --no-check-certificate"
+alias pgo="nocorrect pgo"
+alias helm="nocorrect helm"
