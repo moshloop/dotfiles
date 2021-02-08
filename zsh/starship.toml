@@ -1,0 +1,60 @@
+# Don't print a new line at the start of the prompt
+add_newline = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]      # The name of the module we are configuring is "character"
+symbol = "➜"     # The "symbol" segment is being set to "➜"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[aws]
+disabled = true
+style = "blue"
+symbol = "🅰 "
+displayed_items = "all"
+
+[kubernetes]
+symbol = "☸ "
+style = " bold white"
+disabled = false
+
+
+[env_var]
+variable = "PLATFORM_CONFIG"
+default = ""
+
+[git_branch]
+symbol = "🌱 "
+truncation_length = 10
+truncation_symbol = ""
+
+[git_commit]
+commit_hash_length = 6
+
+[git_state]
+progress_divider = " of "
+cherry_pick = "🍒 PICKING"
+
+[git_status]
+conflicted = "🏳"
+ahead = "🏎💨"
+behind = "😰"
+diverged = "😵"
+untracked = "🤷‍ "
+stashed = "📦 "
+modified = "📝 "
+staged.value = "++"
+staged.style = "green"
+staged_count.enabled = true
+staged_count.style = "green"
+renamed = "👅"
+deleted = "🗑 "
+
+
+[golang]
+disabled = true

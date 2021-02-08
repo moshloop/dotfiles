@@ -1,12 +1,8 @@
 adobe-acrobat-reader
 ccmenu
 docker
-dropbox
-firefox
 gimp
-google-backup-and-sync
 iterm2
-microsoft-office
 quicklook-json
 setapp
 skype
@@ -14,10 +10,5 @@ skype-for-business
 slack
 spotify
 typora
-virtualbox
-virtualbox-extension-pack
-vmware-fusion
-whatsapp
-wireshark
-visual-studio-code
 font-hack-nerd-font
+visual-studio-code

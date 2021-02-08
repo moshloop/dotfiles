@@ -12,12 +12,11 @@ fn - 0x63 : osascript -e 'tell application "Chrome" to activate'
 # f4
 fn - 0x76 : osascript -e 'tell application "Slack" to activate'
 
-
 #f5
 fn - 0x60 :  osascript -e 'tell application "Visual Studio Code" to activate'
-#f6
 
-#fn - 0x61 : say f6
+#f6
+fn - 0x61 :  osascript -e 'tell application "Typora" to activate'
 
 #f7
-#fn - 0x62 : say f7
+fn - 0x62 :  osascript -e 'tell application "Teams" to activate'

@@ -11,7 +11,6 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
 fi
 
 source $ZSH/zsh/plugins.zsh
-source $ZSH/zsh/pure.zsh
 
 if [[ ! -f  $ZSH/.static-config.zsh ]]; then
 
@@ -19,15 +18,16 @@ if [[ ! -f  $ZSH/.static-config.zsh ]]; then
   typeset -U config_files
   config_files=($ZSH/*/*.zsh)
   echo $config_files
+  echo "func load() { source \$1 }" >>  $GEN
 
   # # load the path files
   for file in ${(M)config_files:#*/path.zsh}; do
-    echo source "$file" >> $GEN
+    echo load "$file" >> $GEN
   done
 
   # # load everything but the path and completion files
   for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
-    echo source "$file" >> $GEN
+    echo load "$file" >> $GEN
   done
 
   # # # initialize autocomplete here, otherwise functions won't be loaded
@@ -36,7 +36,7 @@ if [[ ! -f  $ZSH/.static-config.zsh ]]; then
 
   # # load every completion after autocomplete loads
   for file in ${(M)config_files:#*/completion.zsh}; do
-    echo source "$file" >> $GEN
+    echo load "$file" >> $GEN
   done
 
   # for topic_folder ($ZSH/*) if [ -d "$topic_folder" ]; then
@@ -53,7 +53,6 @@ source $ZSH/.static-config.zsh
 unset AUTOSUGGESTION_HIGHLIGHT_COLOR
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=bg=8
 unset AUTOSUGGESTION_HIGHLIGHT_CURSOR
-
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.

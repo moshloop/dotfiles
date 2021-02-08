@@ -1,6 +1,5 @@
 adns
 adr-tools
-allure
 autojump
 awscli
 azure-cli
@@ -14,13 +13,6 @@ ccat
 coreutils
 curl
 dep
-dependency-check
-docker-ls
-docker-machine
-docker-machine-driver-xhyve
-eksctl
-eksctl-aws-iam-authenticator
-elktail
 etcd
 fd
 fontconfig
@@ -79,7 +71,6 @@ lmdb
 lua@5.1
 mc
 micro
-minio
 mitmproxy
 mkcert
 moreutils
@@ -102,7 +93,6 @@ pkg-config
 protobuf
 pwgen
 python
-python@2
 q
 qrencode
 readline
@@ -127,5 +117,4 @@ watchexec
 webp
 wget
 xml-coreutils
-xmlstarlet
 xz

@@ -10,3 +10,5 @@ for app in $(cat ~/.dotfiles/osx/cask.txt); do
 	brew cask install $app
 done
 $HOME/.dotfiles/osx/set-defaults.sh
+brew install koekeishiya/formulae/skhd
+brew services start skhd

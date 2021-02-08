@@ -1,21 +1,22 @@
 
 
-cd $ZSH
+cd $HOME/.dotfiles/zsh
 
 install_plugin() {
-  plugin=plugins/$(basename $1)
+  plugin=$HOME/.dotfiles/plugins/$(basename $1)
   if [ ! -e  $plugin ]; then
-      git subtree add --prefix  plugin  https://github.com/$1.git  master --squash
+      git clone --depth 1 https://github.com/$1.git  $plugin
   fi
   entry=`echo $plugin/*.plugin.zsh`
   if [ ! -e  $entry ]; then
     entry=`echo $plugin/*.zsh`
   fi
-  echo "source $ZSH/$entry " >> $ZSH/zsh/plugins.zsh
+  echo "source $entry " >> plugins.zsh
 
 }
 
-rm $ZSH/zsh/plugins.zsh
-for plugin in `cat $ZSH/zsh/plugins`; do
+mkdir -p $HOME/.config
+ln -s $HOME/.dotfiles/zsh/starship.toml $HOME/.config/
+for plugin in `cat plugins.txt`; do
         install_plugin $plugin
 done
