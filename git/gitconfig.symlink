@@ -1,0 +1,16 @@
+[user]
+	name = Moshe Immerman
+	email = moshe@flanksource.com
+	signingkey = C4F931EC797366D7C919C6D2A19726C37CC29D16
+[commit]
+	gpgsign = false
+[alias]
+    up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+    cp = cherry-pick
+    cl = clone
+    ci = commit
+    co = checkout
+    br = branch
+[credential]
+	helper = !aws codecommit credential-helper $@
+	UseHttpPath = true

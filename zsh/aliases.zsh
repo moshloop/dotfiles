@@ -10,7 +10,7 @@ alias reload!='__reload_dotfiles'
 alias rscp='rsync -v -e "ssh" --rsync-path="sudo rsync"  -arvuz --exclude ".DS_Store" --exclude ".git" '
 alias s3='s3cmd  --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET'
 alias aliases.zsh="subl -w ~/.dotfiles/zsh/aliases.zsh && source ~/.dotfiles/zsh/aliases.zsh"
-
+alias jog='grep -a "${PWD}   " ~/.zsh_history_ext | cat | cut -f1 -d"|" | tail'
 function find-exec {
   find . -type f -iname "*${1:-}*" -exec "${2:-file}" '{}' \;
 }

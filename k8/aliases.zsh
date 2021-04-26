@@ -37,6 +37,7 @@ function kuse() {
 function kctx() {
     kubectl config set-context $1
 }
+
 function kns() {
     context=$(kubectl config current-context)
     kubectl config set-context $context --namespace=$1
@@ -69,6 +70,12 @@ dbash() {
      docker exec -it $cid bash
 }
 
+function kn() {
+    kubectl get -o yaml $* | kubectl-neat
+}
+
+alias sterna="stern --container-state=terminated   --container-state=running --container-state=waiting"
+
 alias k=kubectl
 # Manage configuration quickly to switch contexts between local, dev ad staging.
 alias kcuc='kubectl config use-context'
@@ -76,8 +83,10 @@ alias kcsc='kubectl config set-context'
 alias kcdc='kubectl config delete-context'
 alias kccc='kubectl config current-context'
 alias kl='kubectl logs'
-alias kg='kubectl get'
 alias kd='kubectl describe'
+alias kg='kubectl get'
+alias kga='kubectl get --all-namespaces'
+alias kda='kubectl describe --all-namespaces'
 
 # Pod management.
 alias kgp='kubectl get pods'

@@ -3,12 +3,16 @@
 # Install dotfiles.
 set -eo pipefail
 
-brew install  zsh git curl python unzip
+
+if  [[ "$OSTYPE" == "darwin"* ]]; then
+    brew install  zsh git curl python unzip
+fi
+
 git clone --recursive https://github.com/moshloop/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 chsh -s "$(which zsh)"
 ./script/bootstrap
 git ls-tree --name-only -r HEAD | grep install.sh | while read -r installer; do
-  echo "› ${installer}..."
-  sh -c "$installer"
+    echo "› ${installer}..."
+    sh -c "$installer"
 done

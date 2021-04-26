@@ -6,15 +6,28 @@ fpath=($ZSH/functions $fpath)
 
 # autoload -U "$ZSH"/functions/*(:t)
 # Record each line as it gets issued
-PROMPT_COMMAND='history -a'
 HISTFILE=~/.zsh_history
-HISTSIZE=5000
+HISTSIZE=10000
 SAVEHIST=$HISTSIZE
-HISTFILESIZE=5000
+HISTFILESIZE=$SAVEHIST
 HISTTIMEFORMAT='%F %T '
 
+
 # Don't record some commands
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear:cd:zz"
+HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear:cd:zz"
+
+# share history between sessions ???
+setopt SHARE_HISTORY
+# add timestamps to history
+setopt EXTENDED_HISTORY
+
+# adds history incrementally and share it across sessions
+# setopt INC_APPEND_HISTORY SHARE_HISTORY
+# don't record dupes in history
+setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+
 
 # don't nice background tasks
 setopt NO_BG_NICE
@@ -24,23 +37,11 @@ setopt NO_LIST_BEEP
 setopt LOCAL_OPTIONS
 # allow functions to have local traps
 setopt LOCAL_TRAPS
-# share history between sessions ???
-setopt SHARE_HISTORY
-# add timestamps to history
-setopt EXTENDED_HISTORY
+
 setopt PROMPT_SUBST
 setopt CORRECT
 setopt COMPLETE_IN_WORD
 
-# adds history incrementally and share it across sessions
-setopt INC_APPEND_HISTORY SHARE_HISTORY
-# don't record dupes in history
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_REDUCE_BLANKS
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_VERIFY
-setopt HIST_EXPIRE_DUPS_FIRST
 # dont ask for confirmation in rm globs*
 setopt RM_STAR_SILENT
 
@@ -54,3 +55,9 @@ zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
 zstyle ':completion:*:manuals'    separate-sections true
 zstyle ':completion:*:manuals.*'  insert-sections   true
 zstyle ':completion:*:man:*'      menu yes select
+
+
+
+unset AUTOSUGGESTION_HIGHLIGHT_COLOR
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=bg=8
+unset AUTOSUGGESTION_HIGHLIGHT_CURSOR

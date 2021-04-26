@@ -50,9 +50,10 @@ fi
 
 source $ZSH/.static-config.zsh
 
-unset AUTOSUGGESTION_HIGHLIGHT_COLOR
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=bg=8
-unset AUTOSUGGESTION_HIGHLIGHT_CURSOR
+function zshaddhistory() {
+	echo "${1%%$'\n'}|${PWD}   " >> ~/.zsh_history_ext
+}
+
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.

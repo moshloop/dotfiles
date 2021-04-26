@@ -1,10 +1,9 @@
 {
     "files.hotExit": "onExit",
-    "editor.matchBrackets": true,
+    "editor.matchBrackets": "near",
     "editor.tabSize": 2,
     "files.trimTrailingWhitespace": true,
     "editor.wordWrap": "on",
-    "editor.formatOnPaste": true,
     "editor.multiCursorModifier": "ctrlCmd",
     "editor.snippetSuggestions": "top",
     "editor.fontSize": 14,
@@ -19,8 +18,7 @@
     "explorer.confirmDelete": false,
     "editor.suggestSelection": "first",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "window.zoomLevel": 0,
-        "window.newWindowDimensions": "maximized",
+    "window.newWindowDimensions": "maximized",
     "cSpell.userWords": [
         "Kubernetes",
         "Repos",
@@ -32,7 +30,8 @@
         "repo",
         "rhel",
         "systemd",
-        "uuid"
+        "uuid",
+        "flanksource"
     ],
     "python.jediEnabled": false,
     "files.exclude": {
@@ -50,25 +49,57 @@
         "findReferences": true // for finding in-package references
     },
     "[go]": {
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": false
+        },
+        "editor.suggest.showMethods": true,
         "editor.snippetSuggestions": "none",
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true
+            "source.organizeImports": true,
+            "source.fixAll": false,
         }
     },
+    "go.editorContextMenuCommands": {
+        "toggleTestFile": true,
+        "addTags": true,
+        "removeTags": false,
+        "testAtCursor": true,
+        "testFile": false,
+        "testPackage": false,
+        "generateTestForFunction": true,
+        "generateTestForFile": false,
+        "generateTestForPackage": false,
+        "addImport": true,
+        "testCoverage": true,
+        "playground": true,
+        "debugTestAtCursor": true
+    },
+    "go.gopath": "/Volumes/Work/go/",
     "gopls": {
-        "usePlaceholders": true // add parameter placeholders when completing a function
+        "build.directoryFilters": [
+            "-manifests",
+            "-bin",
+            "-platform-configuration",
+            "-.bin",
+            "-build",
+        ],
+        "build.experimentalPackageCacheKey": true,
+        "staticcheck": false,
+        "usePlaceholders": false, // add parameter placeholders when completing a function
     },
     "files.eol": "\n", // formatting only supports LF line endings
-
-    "go.lintTool": "revive",
+    "go.lintTool": "golangci-lint",
     "go.autocompleteUnimportedPackages": true,
     "editor.scrollBeyondLastLine": false,
     "editor.wordWrapColumn": 120,
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
     "search.exclude": {
-        "**/build": true
+        "**/build": true,
+        "**/vendor": true
     },
     "search.useGlobalIgnoreFiles": true,
     "workbench.editor.closeOnFileDelete": true,
@@ -79,7 +110,76 @@
     "breadcrumbs.enabled": true,
     "gitlens.views.repositories.files.layout": "list",
     "go.formatTool": "gofmt",
-    "jsonnet.libPaths": {
-        "vendor/"
+    "go.vetOnSave": "off",
+    "editor.formatOnSave": true,
+    "go.coverOnTestPackage": false,
+    // "go.languageServerFlags": [
+    //     "-rpc.trace"
+    // ],
+    "git.suggestSmartCommit": false,
+    "go.buildOnSave": "off",
+    "go.lintOnSave": "file",
+    "go.liveErrors": {
+        "enabled": true,
+        "delay": 2500
     },
+    "yaml.schemaStore.enable": true,
+    "[json]": {
+        "editor.formatOnSave": false
+    },
+    "yaml.customTags": [
+        "!!env",
+        "!!template",
+        "!env",
+        "!template",
+    ],
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        },
+        "editor.autoIndent": false,
+    },
+    "[gohtml]": {
+        "editor.formatOnSave": true,
+    },
+    "[vue]": {
+        "editor.formatOnSave": false,
+    },
+    "cSpell.allowCompoundWords": true,
+    "go.useLanguageServer": true,
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "editor.codeActionsOnSave": null,
+    "reflowMarkdown.resizeHeaderDashLines": true,
+    "reflowMarkdown.preferredLineLength": 81,
+    "vetur.format.enable": false,
+    "vetur.experimental.templateInterpolationService": true,
+    "vetur.format.defaultFormatter.html": "js-beautify-html",
+    "vetur.format.defaultFormatterOptions": {
+        "prettier": {},
+        "js-beautify-html": {},
+        "prettyhtml": {
+            "printWidth": 200,
+            "singleQuote": false,
+            "wrapAttributes": false,
+            "sortAttributes": true,
+        }
+    },
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+    "python.languageServer": "Pylance",
+    "go.toolsManagement.autoUpdate": true,
+    "python.defaultInterpreterPath": "python3",
+    "python.diagnostics.sourceMapsEnabled": true,
+    "python.disableInstallationCheck": true,
+    "python.analysis.extraPaths": [
+        "/usr/local/lib/python3.9/site-packages"
+    ],
 }
