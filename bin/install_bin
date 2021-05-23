@@ -1,0 +1,61 @@
+#!/bin/bash
+if [[ "$1" == "" ]]; then
+    echo "USAGE: install_bin  <name|url> [name2|url2]"
+    echo "Check if a binary exists before attempting to download and install it"
+    echo "Override binary name using: bin_name=name install_bin ..."
+    exit 0
+fi
+
+if [[ "$DEBUG" == "true" ]]; then
+    set -vx
+fi
+BIN=/usr/bin
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    BIN=/usr/local/bin
+fi
+
+for pkg in "$@"; do
+    name=$(basename $pkg)
+    base=${name%.*} # remove extension
+    bin=${bin_name:-$(echo $base | cut -d_ -f1)} # strip off os_platform like params
+    if [[  "$force" != "true" && -e $BIN/$bin ]]; then
+        exit 0
+    fi
+
+    echo "Installing $BIN/$bin"
+
+    tmp=$(mktemp -d)
+    wget -nv -O $tmp/$name --no-check-certificate $pkg
+    if [[ "$name" != "$base" ]]; then
+        # binary is probably compressed tar.gz or other archive
+        cd $tmp
+        if extract $name && [[ -e $name ]]; then
+            rm $name
+        fi
+    fi
+
+    contents=$(find $tmp -maxdepth 1 -mindepth 1)
+    if [[ -d $contents ]]; then
+        # unwrap a single directory
+        tmp=$contents
+    fi
+
+    if [[ -e $tmp/$base ]]; then
+        mv $tmp/$base $BIN/$bin
+    elif [[ -e $tmp/$name ]]; then
+        mv $tmp/$name $BIN/$bin
+    elif [[ -e $tmp/$bin ]]; then
+        mv $tmp/$bin $BIN/$bin
+    else
+        # nothing found, search for the first executable
+        bin=$(find $tmp -type f -executable | head -n1)
+        if [[ "$bin" == "" ]]; then
+            echo "Unable to detect executable in $(ls)"
+            exit 1
+        fi
+        mv $bin $BIN/
+        exit 0
+    fi
+    chmod +x $BIN/$bin
+done

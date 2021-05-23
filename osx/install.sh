@@ -4,11 +4,9 @@
 rm -rf $HOME/Library/Scripts
 cp $HOME/.dotfiles/osx/Scripts/* /Library/Scripts/
 for app in $(cat ~/.dotfiles/osx/brew.txt); do
-	brew install $app
+    brew install $app
 done
 for app in $(cat ~/.dotfiles/osx/cask.txt); do
-	brew cask install $app
+    brew cask install $app
 done
 $HOME/.dotfiles/osx/set-defaults.sh
-brew install koekeishiya/formulae/skhd
-brew services start skhd

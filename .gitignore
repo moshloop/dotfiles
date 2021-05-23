@@ -1,4 +1,4 @@
 zsh/plugins
 .static-config.zsh
 .DS_Store
-plugins.zsh
+plugins/

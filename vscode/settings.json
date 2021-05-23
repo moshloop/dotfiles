@@ -94,7 +94,7 @@
     "go.lintTool": "golangci-lint",
     "go.autocompleteUnimportedPackages": true,
     "editor.scrollBeyondLastLine": false,
-    "editor.wordWrapColumn": 120,
+    "editor.wordWrapColumn": 250,
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
     "search.exclude": {
@@ -182,4 +182,9 @@
     "python.analysis.extraPaths": [
         "/usr/local/lib/python3.9/site-packages"
     ],
+    "aws.cdk.explorer.enabled": false,
+    "aws.telemetry": false,
+    "editor.minimap.maxColumn": 250,
+    "yaml.format.printWidth": 200,
+    "json.maxItemsComputed": 2500,
 }

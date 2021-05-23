@@ -33,24 +33,24 @@ e_bold() { printf "${bold}%s${reset}\n" "$@"}
 e_note() { printf "${underline}${bold}${blue}Note:${reset}  ${blue}%s${reset}\n" "$@"}
 
 info () {
-  # shellcheck disable=SC2059
-  printf "  [ \033[00;34m..\033[0m ] $1"
+    # shellcheck disable=SC2059
+    printf "  [ \033[00;34m..\033[0m ] $1"
 }
 
 user () {
-  # shellcheck disable=SC2059
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+    # shellcheck disable=SC2059
+    printf "\r  [ \033[0;33m?\033[0m ] $1 "
 }
 
 success () {
-  # shellcheck disable=SC2059
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+    # shellcheck disable=SC2059
+    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
 }
 
 fail () {
-  # shellcheck disable=SC2059
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
+    # shellcheck disable=SC2059
+    printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+    echo ''
 }
 
 function repeat()       # Repeat n times command.
@@ -93,10 +93,10 @@ extract () {
 function myip() # Get IP adresses.
 {
     ETH=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' | \
-          sed -e s/addr://)
-
+    sed -e s/addr://)
+    
     WLAN=$(/sbin/ifconfig wlan0 | awk '/inet/ { print $2 } ' | \
-          sed -e s/addr://)
+    sed -e s/addr://)
     echo -e "${BOLD}Local eth0 IP Address: ${NA}${cyan} `echo ${ETH:-'Not connected'}`$NA"
     echo -e "${BOLD}Local wlan0 IP Address:${NA}${cyan} `echo ${WLAN:-'Not connected'}`$NA"
 }
@@ -110,7 +110,7 @@ function transfer() {
     fi
     tmpfile=$( mktemp -t transferXXX );
     if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g');
-     curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile;
+        curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile;
     else
         curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ;
     fi;
@@ -120,42 +120,42 @@ function transfer() {
 
 
 server() {
-  local port="${1-8000}"
-  python -m SimpleHTTPServer "$port" &
-  open "http://localhost:$port"
+    local port="${1-8000}"
+    python -m SimpleHTTPServer "$port" &
+    open "http://localhost:$port"
 }
 
 function epoch() {
-  echo `python -c "import time; print  ('{:0.0f}'.format(time.time() * 1000))"`
+    echo `python -c "import time; print  ('{:0.0f}'.format(time.time() * 1000))"`
 }
 
 
 function stopwatch() {
-  BEGIN=$1
-  NOW=`epoch`
-   let DIFF=$(( $NOW - $BEGIN ))
-   # \r  is a "carriage return" - returns cursor to start of line
-   printf "\e[36m\r %02dms" $DIFF
+    BEGIN=$1
+    NOW=`epoch`
+    let DIFF=$(( $NOW - $BEGIN ))
+    # \r  is a "carriage return" - returns cursor to start of line
+    printf "\e[36m\r %02dms" $DIFF
 }
 
 #!/bin/sh
 # From http://dotfiles.org/~_why/.zshrc
 # Sets the window title nicely no matter where you are
 title() {
-  # escape '%' chars in $1, make nonprintables visible
-  a=${(V)1//\%/\%\%}
-
-  # Truncate command, and join lines.
-  a=$(print -Pn "%40>...>$a" | tr -d "\n")
-
-  case $TERM in
-  screen)
-    print -Pn "\ek$a:$3\e\\" # screen title (in ^A")
-    ;;
-  xterm*|rxvt)
-    print -Pn "\e]2;$2\a" # plain xterm title ($3 for pwd)
-    ;;
-  esac
+    # escape '%' chars in $1, make nonprintables visible
+    a=${(V)1//\%/\%\%}
+    
+    # Truncate command, and join lines.
+    a=$(print -Pn "%40>...>$a" | tr -d "\n")
+    
+    case $TERM in
+        screen)
+            print -Pn "\ek$a:$3\e\\" # screen title (in ^A")
+        ;;
+        xterm*|rxvt)
+            print -Pn "\e]2;$2\a" # plain xterm title ($3 for pwd)
+        ;;
+    esac
 }
 
 

@@ -5,8 +5,6 @@ gimp
 iterm2
 quicklook-json
 setapp
-skype
-skype-for-business
 slack
 spotify
 typora
