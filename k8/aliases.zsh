@@ -1,3 +1,58 @@
+export PATH="$HOME/.krew/bin:$PATH"
+alias stern="stern --container-state  terminated --container-state running --container-state waiting"
+
+function helmimport() {
+    kind=$1
+    name=$2
+    release=$3
+    namespace=$4
+    kubectl annotate $1 $2 -n $namespace  "meta.helm.sh/release-name=$3" --overwrite
+    kubectl annotate $1 $2 -n $namespace  "meta.helm.sh/release-namespace=$4" --overwrite
+    kubectl label $1 $2 -n $namespace  "app.kubernetes.io/managed-by=Helm" --overwrite
+
+}
+
+function fluxrestartfailed() {
+    IFS=$(echo -en "\n\b")
+    for po in $(kubectl get helmrelease --all-namespaces | grep False ); do
+         fluxrestart helmrelease $(echo $po | awk '{print $2}') $(echo $po | awk '{print $1}');
+    done
+}
+
+
+function foreachns() {
+    current_ns=$(kubectl config view --minify -o jsonpath='{..namespace}')
+    filter=$1
+    cmd=$2
+    for ns in $(kubectl get ns -o name | sed 's|namespace/||' | grep $filter); do
+        echo $ns
+        kubectl config set-context --current --namespace=$ns > /dev/null 2>&1
+        eval $cmd
+    done
+       kubectl config set-context --current  --namespace=$current_ns > /dev/null 2>&1
+}
+
+
+function fluxrestart() {
+
+ns="flux-system"
+
+if [[ "$1" != "kustomization" ]]; then
+	ns=$(kubens -c)
+fi
+if [[ "$3" != "" ]]; then
+ns=$3
+fi
+
+echo restarting $ns/$1/$2
+
+
+kubectl patch $1 $2 -n $ns --field-manager=flux-client-side-apply --type='json' -p='[{"op": "replace", "path": "/spec/suspend", "value":true }]'
+kubectl patch $1 $2 -n $ns --field-manager=flux-client-side-apply --type='json' -p='[{"op": "replace", "path": "/spec/suspend", "value":false }]'
+
+
+}
+
 function kdeletens() {
     NAMESPACE=$1
     kubectl proxy &>/dev/null &
@@ -15,6 +70,14 @@ function kdeletefailed() {
     IFS=$(echo -en "\n\b")
     for po in $(kubectl get po --all-namespaces | grep -v Running ); do
         kubectl delete po   --wait=false -n $(echo $po | awk '{print $1}') $(echo $po | awk '{print $2}');
+    done
+}
+
+
+function kdeletefailedforce() {
+    IFS=$(echo -en "\n\b")
+    for po in $(kubectl get po --all-namespaces | grep  Terminating ); do
+        kubectl delete po  --force --wait=false -n $(echo $po | awk '{print $1}') $(echo $po | awk '{print $2}');
     done
 }
 

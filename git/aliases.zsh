@@ -15,6 +15,21 @@ alias gcam='git commit -a -m'
 alias gs='git status -sb'
 alias gcb='git-copy-branch-name'
 
+
+ado-pr() {
+  git stash && git pull --rebase origin main   && git stash pop
+  git push origin main:pr/$1
+  id=$(az repos pr create --auto-complete true -s pr/$1 -t main -r Infrastructure | jq -r .codeReviewId)
+  az repos pr  set-vote --id $id --vote approve
+}
+
+ado-pr-fast() {
+  git stash && git pull --rebase origin main   && git stash pop
+  git push origin main:pr/$1
+  id=$(az repos pr create  -s pr/$1 -t main -r Infrastructure | jq -r .codeReviewId)
+  az repos pr  update --id $id --bypass-policy --bypass-policy-reason "fast-pass" --delete-source-branch --status completed
+}
+
 gtp() {
   git tag $1
   git push origin $1
@@ -29,11 +44,50 @@ gpt() {
   git push origin master
 }
 
+git-active-branch() {
+  git branch | grep '*' | sed 's/*//' | sed 's/ //'
+}
+
+git-cp-into-main() {
+   BRANCH=$(git-active-branch)
+   git stash
+   git checkout main
+   git pull --rebase origin main
+   git cherry-pick $1
+   git push origin
+   git checkout $BRANCH
+   git stash pop
+}
+
+
+push-tag() {
+  git pull --rebase origin main --autostash
+  tag=$(git-new-minor)
+  echo "Pushing $tag"
+  git tag $tag
+  git push origin $tag
+}
+
+git-new-minor() {
+  CURTAG=$(git describe --abbrev=0 --tags)
+  CURTAG="${CURTAG/v/}"
+  BASE_LIST=(`echo $CURTAG | tr '.' ' '`)
+  MAJ=${BASE_LIST[1]}
+  MIN=${BASE_LIST[2]}
+  BUG=${BASE_LIST[3]}
+  ((BUG+=1))
+  echo "v$MAJ.$MIN.$BUG"
+}
+
 gup() {
-    BRANCH=$(git branch | grep '*' | sed 's/*//' | sed 's/ //')
+    set -e
+    BRANCH=$(git-active-branch)
     git stash
+
+    git fetch origin
     git pull --rebase origin $BRANCH
     git stash pop
+
 }
 
 merge() {
@@ -53,23 +107,6 @@ get-team-id() {
   echo $response | grep $2 | head -n 1 | cut -d= -f2
 }
 
-new-repo() {
-  echo "Getting team id: $GH_ORG $2"
-    team=$(get-team-id $GH_ORG $2)
-    echo "team-id = $team"
-    if [[ "$team" = "" ]]; then
-      echo "Could not find team: $GH_ORG:$2"
-      exit 1
-    fi
-    echo "Creating repo $1 owned by $GH_ORG:$2"
-    http -v --auth ${GH_USER}:$GH_TOKEN POST https://api.github.com/orgs/$GH_ORG/repos name=$1 private=true team_id=$team auto_init=true
-    circleci-follow $1
-    open "https://www.codacy.com/wizard/projects?orgId=3047"
-}
-
-circleci-follow() {
-  http --auth $CIRCLECI: --form POST https://circleci.com/api/v1.1/project/github/$GH_ORG/$1/follow
-}
 
 cleanup-merges() {
 	git fetch --all

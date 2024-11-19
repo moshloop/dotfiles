@@ -7,6 +7,9 @@ for app in $(cat ~/.dotfiles/osx/brew.txt); do
     brew install $app
 done
 for app in $(cat ~/.dotfiles/osx/cask.txt); do
-    brew cask install $app
+    brew install $app
 done
 $HOME/.dotfiles/osx/set-defaults.sh
+
+
+
